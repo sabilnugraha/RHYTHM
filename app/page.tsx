@@ -37,13 +37,11 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="relative flex min-h-[580px] items-center justify-center overflow-visible">
-              <div className="absolute bottom-10 left-1/2 h-[430px] w-[520px] -translate-x-1/2 rounded-[3.5rem] rounded-b-[8rem] border-[3px] border-black bg-[#FF6ACD] shadow-[14px_14px_0px_#000] [background-image:radial-gradient(#151515_2px,transparent_2px)] [background-size:24px_24px]" />
-
+            <div className="relative flex min-h-[580px] items-center justify-center overflow-visible lg:justify-end">
               <img
                 src="/rithbot.png"
                 alt="RHYTHM Bot"
-                className="relative z-10 w-full max-w-[840px] object-contain transition duration-300 hover:scale-105"
+                className="relative z-10 w-[125%] max-w-none object-contain transition duration-300 hover:scale-105 lg:-mr-28 xl:-mr-36"
               />
             </div>
           </div>
