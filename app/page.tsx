@@ -39,9 +39,9 @@ export default function Home() {
 
             <div className="flex items-center justify-center">
               <img
-                src="https://drive.google.com/uc?export=view&id=1ZfPjU3eaLktrIjdq6oU9E8TvH9oekkGf"
+                src="/rithbot.png"
                 alt="RHYTHM Bot"
-                className="w-full max-w-[480px] object-contain"
+                className="w-full max-w-[520px] object-contain"
               />
             </div>
           </div>
