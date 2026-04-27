@@ -41,7 +41,7 @@ export default function Home() {
               <img
                 src="/rithbot.png"
                 alt="RHYTHM Bot"
-                className="w-full max-w-[520px] object-contain"
+                className="w-full max-w-[750px] object-contain hover:scale-105 transition duration-300"
               />
             </div>
           </div>
