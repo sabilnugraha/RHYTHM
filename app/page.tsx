@@ -38,12 +38,15 @@ export default function Home() {
             </div>
 
             <div className="relative flex min-h-[560px] items-center justify-center overflow-visible">
-              <div className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dashed border-black/50 bg-[#18A999]/10 animate-pulse" />
+              <div className="absolute left-[8%] top-[16%] h-36 w-56 -rotate-6 rounded-[2rem] border-2 border-black bg-gradient-to-br from-[#BFE8FF]/80 to-[#18A999]/25 shadow-[8px_8px_0px_#000] backdrop-blur-sm" />
+              <div className="absolute right-[2%] top-[22%] h-28 w-44 rotate-6 rounded-[2rem] border-2 border-black bg-gradient-to-br from-[#FFFDF8]/90 to-[#8EF5E5]/35 shadow-[8px_8px_0px_#000] backdrop-blur-sm" />
+              <div className="absolute bottom-[18%] left-[12%] h-24 w-40 rotate-3 rounded-[1.5rem] border-2 border-black bg-gradient-to-br from-[#CDEFD7]/85 to-[#18A999]/20 shadow-[7px_7px_0px_#000] backdrop-blur-sm" />
+              <div className="absolute bottom-[26%] right-[12%] h-20 w-32 -rotate-6 rounded-full border-2 border-black bg-gradient-to-br from-[#FFD6A5]/90 to-[#FFFDF8]/40 shadow-[7px_7px_0px_#000] backdrop-blur-sm" />
 
-              <div className="absolute left-[18%] top-[48%] h-4 w-4 rounded-full border-2 border-black bg-[#18A999] shadow-[3px_3px_0px_#000] animate-ping" />
-              <div className="absolute right-[18%] top-[52%] h-5 w-5 rounded-full border-2 border-black bg-[#18A999] shadow-[3px_3px_0px_#000] animate-ping" />
-              <div className="absolute top-[25%] left-[40%] h-3 w-3 rounded-full border-2 border-black bg-[#18A999] animate-ping" />
-              <div className="absolute bottom-[20%] right-[35%] h-3 w-3 rounded-full border-2 border-black bg-[#18A999] animate-ping" />
+              <div className="absolute left-[26%] top-[34%] h-4 w-24 -rotate-12 rounded-full bg-[#18A999] shadow-[0_0_22px_#18A999]" />
+              <div className="absolute right-[20%] bottom-[36%] h-4 w-28 rotate-12 rounded-full bg-[#8EF5E5] shadow-[0_0_22px_#8EF5E5]" />
+              <div className="absolute left-[20%] bottom-[32%] h-5 w-5 rounded-full border-2 border-black bg-[#18A999] shadow-[0_0_18px_#18A999]" />
+              <div className="absolute right-[26%] top-[38%] h-4 w-4 rounded-full border-2 border-black bg-[#8EF5E5] shadow-[0_0_18px_#8EF5E5]" />
 
               <img
                 src="/rithbot.png"
