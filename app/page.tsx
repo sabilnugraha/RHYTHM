@@ -38,25 +38,17 @@ export default function Home() {
             </div>
 
             <div className="relative flex min-h-[560px] items-center justify-center overflow-visible">
-              <div className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dashed border-black/50 bg-[#18A999]/10" />
-              <div className="absolute left-[10%] top-[18%] -rotate-6 border-2 border-black bg-[#FFFDF8] px-4 py-3 text-xs font-black uppercase tracking-wider shadow-[4px_4px_0px_#000]">
-                AI Triggered
-              </div>
-              <div className="absolute right-[4%] top-[26%] rotate-3 border-2 border-black bg-[#FFD6A5] px-4 py-3 text-xs font-black uppercase tracking-wider shadow-[4px_4px_0px_#000]">
-                Workflow
-              </div>
-              <div className="absolute bottom-[18%] left-[14%] rotate-3 border-2 border-black bg-[#CDEFD7] px-4 py-3 text-xs font-black uppercase tracking-wider shadow-[4px_4px_0px_#000]">
-                Data Sync
-              </div>
-              <div className="absolute bottom-[25%] right-[10%] -rotate-6 border-2 border-black bg-[#BFE8FF] px-4 py-3 text-xs font-black uppercase tracking-wider shadow-[4px_4px_0px_#000]">
-                Rules
-              </div>
-              <div className="absolute left-[18%] top-[48%] h-4 w-4 rounded-full border-2 border-black bg-[#18A999] shadow-[3px_3px_0px_#000]" />
-              <div className="absolute right-[18%] top-[52%] h-5 w-5 rounded-full border-2 border-black bg-[#18A999] shadow-[3px_3px_0px_#000]" />
+              <div className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dashed border-black/50 bg-[#18A999]/10 animate-pulse" />
+
+              <div className="absolute left-[18%] top-[48%] h-4 w-4 rounded-full border-2 border-black bg-[#18A999] shadow-[3px_3px_0px_#000] animate-ping" />
+              <div className="absolute right-[18%] top-[52%] h-5 w-5 rounded-full border-2 border-black bg-[#18A999] shadow-[3px_3px_0px_#000] animate-ping" />
+              <div className="absolute top-[25%] left-[40%] h-3 w-3 rounded-full border-2 border-black bg-[#18A999] animate-ping" />
+              <div className="absolute bottom-[20%] right-[35%] h-3 w-3 rounded-full border-2 border-black bg-[#18A999] animate-ping" />
+
               <img
                 src="/rithbot.png"
                 alt="RHYTHM Bot"
-                className="relative z-10 w-full max-w-[760px] object-contain hover:scale-105 transition duration-300"
+                className="relative z-10 w-full max-w-[780px] object-contain hover:scale-105 transition duration-300"
               />
             </div>
           </div>
