@@ -37,21 +37,13 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="relative flex min-h-[560px] items-center justify-center overflow-visible">
-              <div className="absolute left-[8%] top-[16%] h-36 w-56 -rotate-6 rounded-[2rem] border-2 border-black bg-gradient-to-br from-[#BFE8FF]/80 to-[#18A999]/25 shadow-[8px_8px_0px_#000] backdrop-blur-sm" />
-              <div className="absolute right-[2%] top-[22%] h-28 w-44 rotate-6 rounded-[2rem] border-2 border-black bg-gradient-to-br from-[#FFFDF8]/90 to-[#8EF5E5]/35 shadow-[8px_8px_0px_#000] backdrop-blur-sm" />
-              <div className="absolute bottom-[18%] left-[12%] h-24 w-40 rotate-3 rounded-[1.5rem] border-2 border-black bg-gradient-to-br from-[#CDEFD7]/85 to-[#18A999]/20 shadow-[7px_7px_0px_#000] backdrop-blur-sm" />
-              <div className="absolute bottom-[26%] right-[12%] h-20 w-32 -rotate-6 rounded-full border-2 border-black bg-gradient-to-br from-[#FFD6A5]/90 to-[#FFFDF8]/40 shadow-[7px_7px_0px_#000] backdrop-blur-sm" />
-
-              <div className="absolute left-[26%] top-[34%] h-4 w-24 -rotate-12 rounded-full bg-[#18A999] shadow-[0_0_22px_#18A999]" />
-              <div className="absolute right-[20%] bottom-[36%] h-4 w-28 rotate-12 rounded-full bg-[#8EF5E5] shadow-[0_0_22px_#8EF5E5]" />
-              <div className="absolute left-[20%] bottom-[32%] h-5 w-5 rounded-full border-2 border-black bg-[#18A999] shadow-[0_0_18px_#18A999]" />
-              <div className="absolute right-[26%] top-[38%] h-4 w-4 rounded-full border-2 border-black bg-[#8EF5E5] shadow-[0_0_18px_#8EF5E5]" />
+            <div className="relative flex min-h-[580px] items-center justify-center overflow-visible">
+              <div className="absolute bottom-10 left-1/2 h-[430px] w-[520px] -translate-x-1/2 rounded-[3.5rem] rounded-b-[8rem] border-[3px] border-black bg-[#FF6ACD] shadow-[14px_14px_0px_#000] [background-image:radial-gradient(#151515_2px,transparent_2px)] [background-size:24px_24px]" />
 
               <img
                 src="/rithbot.png"
                 alt="RHYTHM Bot"
-                className="relative z-10 w-full max-w-[780px] object-contain hover:scale-105 transition duration-300"
+                className="relative z-10 w-full max-w-[840px] object-contain transition duration-300 hover:scale-105"
               />
             </div>
           </div>
