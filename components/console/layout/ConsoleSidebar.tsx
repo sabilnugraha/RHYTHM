@@ -5,10 +5,11 @@ import { useState } from 'react';
 import type { ConsoleTab } from '../ConsoleOverviewPage';
 
 const menu = [
-  { id: 'overview', label: 'Overview', section: 'Overview' },
+  { id: 'overview', label: 'Overview', icon: '⌂', section: 'Overview' },
   {
     id: 'workspace-lobby',
     label: 'Workspace Lobby',
+    icon: '▦',
     section: 'Workspace Lobby',
     children: [
       { id: 'workspaces', label: 'All Workspaces' },
@@ -20,6 +21,7 @@ const menu = [
   {
     id: 'agent-studio',
     label: 'Agent Studio',
+    icon: '✦',
     section: 'Agent Studio',
     children: [
       { id: 'agents', label: 'All Agents' },
@@ -27,11 +29,12 @@ const menu = [
       { id: 'agent-package', label: 'Package Builder' },
     ],
   },
-  { id: 'sla', label: 'SLA & Performance', section: 'SLA & Performance' },
-  { id: 'platform-users', label: 'Platform Users', section: 'Platform Users' },
+  { id: 'sla', label: 'SLA & Performance', icon: '↗', section: 'SLA & Performance' },
+  { id: 'platform-users', label: 'Platform Users', icon: '◎', section: 'Platform Users' },
   {
     id: 'package-studio',
     label: 'Package Studio',
+    icon: '◈',
     section: 'Package Studio',
     children: [
       { id: 'packages', label: 'All Packages' },
@@ -39,8 +42,8 @@ const menu = [
       { id: 'package-mobile', label: 'Mobile Attendance' },
     ],
   },
-  { id: 'audit-logs', label: 'Audit Logs', section: 'Audit Logs' },
-  { id: 'settings', label: 'Settings', section: 'Settings' },
+  { id: 'audit-logs', label: 'Audit Logs', icon: '☰', section: 'Audit Logs' },
+  { id: 'settings', label: 'Settings', icon: '⚙', section: 'Settings' },
 ];
 
 type ConsoleSidebarProps = {
@@ -49,6 +52,7 @@ type ConsoleSidebarProps = {
 };
 
 export function ConsoleSidebar({ activeSection, onOpenTab }: ConsoleSidebarProps) {
+  const [isExpanded, setIsExpanded] = useState(true);
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
     'Workspace Lobby': true,
     'Agent Studio': true,
@@ -59,14 +63,29 @@ export function ConsoleSidebar({ activeSection, onOpenTab }: ConsoleSidebarProps
   }
 
   return (
-    <aside className="hidden w-64 shrink-0 border-r-2 border-black bg-[#FFFDF8] p-3 lg:block">
-      <button
-        className="mb-3 w-full border-2 border-black bg-[#18A999] px-3 py-3 text-left text-white shadow-[3px_3px_0px_#000]"
-        onClick={() => onOpenTab({ id: 'overview', label: 'Overview', section: 'Overview', pinned: true })}
-      >
-        <div className="text-xl font-black tracking-[-0.04em]">RHYTHM</div>
-        <div className="text-[9px] font-black uppercase tracking-[0.2em]">Console</div>
-      </button>
+    <aside className={`hidden shrink-0 bg-[#141414] p-3 text-[#F8F4EC] transition-all duration-200 lg:block ${isExpanded ? 'w-64' : 'w-20'}`}>
+      <div className="mb-4 flex items-center justify-between gap-2">
+        <button
+          className="flex min-w-0 flex-1 items-center gap-2 rounded-2xl px-2 py-2 text-left"
+          onClick={() => onOpenTab({ id: 'overview', label: 'Overview', section: 'Overview', pinned: true })}
+        >
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#18A999] text-lg font-black text-white">R</span>
+          {isExpanded ? (
+            <span>
+              <span className="block text-sm font-black tracking-[-0.02em]">RHYTHM</span>
+              <span className="block text-[9px] font-black uppercase tracking-[0.22em] text-white/50">Console</span>
+            </span>
+          ) : null}
+        </button>
+        <button
+          className="rounded-xl border border-white/10 bg-white/5 px-2 py-1 text-xs font-black text-white/70 hover:bg-white/10"
+          onClick={() => setIsExpanded((value) => !value)}
+          aria-label="Toggle sidebar"
+        >
+          {isExpanded ? '‹' : '›'}
+        </button>
+      </div>
+
       <nav className="space-y-1.5">
         {menu.map((item) => {
           const isActive = activeSection === item.section;
@@ -74,22 +93,32 @@ export function ConsoleSidebar({ activeSection, onOpenTab }: ConsoleSidebarProps
 
           return (
             <div key={item.id}>
-              <div className={`flex border-2 border-black text-[11px] font-black uppercase tracking-wider ${isActive ? 'bg-[#A7C7FF]' : 'bg-[#F6F1E8]'}`}>
-                <button className="flex-1 px-3 py-2 text-left" onClick={() => onOpenTab({ id: item.id, label: item.label, section: item.section, pinned: item.id === 'overview' })}>
-                  {item.label}
+              <div className={`group flex items-center rounded-xl text-[11px] font-bold uppercase tracking-wide transition ${isActive ? 'bg-[#F8F4EC] text-[#141414]' : 'text-white/62 hover:bg-white/8 hover:text-white'}`}>
+                <button
+                  className={`flex min-w-0 flex-1 items-center gap-3 px-3 py-2 text-left ${!isExpanded ? 'justify-center' : ''}`}
+                  onClick={() => onOpenTab({ id: item.id, label: item.label, section: item.section, pinned: item.id === 'overview' })}
+                  title={item.label}
+                >
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-current/20 text-sm">{item.icon}</span>
+                  {isExpanded ? <span className="truncate">{item.label}</span> : null}
                 </button>
-                {item.children ? (
-                  <button className="border-l-2 border-black px-2" onClick={() => toggleSection(item.section)}>
-                    {isOpen ? '^' : 'v'}
+                {item.children && isExpanded ? (
+                  <button className="px-3 py-2 text-xs" onClick={() => toggleSection(item.section)}>
+                    {isOpen ? '−' : '+'}
                   </button>
                 ) : null}
               </div>
-              {item.children && isOpen ? (
-                <div className="ml-3 space-y-1 border-l-2 border-black py-1 pl-3">
+
+              {item.children && isOpen && isExpanded ? (
+                <div className="ml-6 mt-1 space-y-1 border-l border-white/10 pl-3">
                   {item.children.map((child) => (
-                    <button key={child.id} className="flex w-full items-center justify-between py-1 text-left text-[11px] font-bold uppercase tracking-wider text-neutral-700 hover:text-black" onClick={() => onOpenTab({ id: child.id, label: child.label, section: item.section, badge: child.badge })}>
-                      <span>{child.label}</span>
-                      {child.badge ? <span className="border-2 border-black bg-[#FFD6A5] px-1 text-[9px] font-black">{child.badge}</span> : null}
+                    <button
+                      key={child.id}
+                      className="flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left text-[11px] font-semibold uppercase tracking-wide text-white/55 hover:bg-white/8 hover:text-white"
+                      onClick={() => onOpenTab({ id: child.id, label: child.label, section: item.section, badge: child.badge })}
+                    >
+                      <span className="truncate">{child.label}</span>
+                      {child.badge ? <span className="ml-2 rounded bg-[#FFD6A5] px-1.5 py-0.5 text-[9px] font-black text-black">{child.badge}</span> : null}
                     </button>
                   ))}
                 </div>
