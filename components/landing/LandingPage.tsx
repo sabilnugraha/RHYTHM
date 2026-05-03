@@ -7,6 +7,14 @@ import { LoginModal } from '../auth/LoginModal';
 export function LandingPage() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
+  function openLoginModal() {
+    setIsLoginOpen(true);
+  }
+
+  function closeLoginModal() {
+    setIsLoginOpen(false);
+  }
+
   return (
     <main className="min-h-screen bg-[#F6F1E8] text-[#151515]">
       <section className="relative min-h-screen overflow-hidden px-6 py-6 md:px-10">
@@ -26,12 +34,12 @@ export function LandingPage() {
             <div className="flex items-center gap-3">
               <button
                 type="button"
-                className="hidden border-2 border-black bg-[#FFFDF8] px-4 py-2 text-sm font-black uppercase shadow-[4px_4px_0px_#000] transition-transform hover:-translate-y-0.5 md:inline-flex"
-                onClick={() => setIsLoginOpen(true)}
+                className="inline-flex border-2 border-black bg-[#FFFDF8] px-4 py-2 text-xs font-black uppercase shadow-[4px_4px_0px_#000] transition-transform hover:-translate-y-0.5 md:text-sm"
+                onClick={openLoginModal}
               >
                 Sign In
               </button>
-              <button className="border-2 border-black bg-[#A7C7FF] px-4 py-2 text-sm font-black uppercase shadow-[4px_4px_0px_#000] transition-transform hover:-translate-y-0.5">Early Access</button>
+              <button className="border-2 border-black bg-[#A7C7FF] px-4 py-2 text-xs font-black uppercase shadow-[4px_4px_0px_#000] transition-transform hover:-translate-y-0.5 md:text-sm">Early Access</button>
             </div>
           </nav>
 
@@ -65,7 +73,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
+      <LoginModal isOpen={isLoginOpen} onClose={closeLoginModal} />
     </main>
   );
 }
