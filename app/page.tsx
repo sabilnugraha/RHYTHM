@@ -15,7 +15,10 @@ export default function Home() {
               <span>System</span>
               <span>Demo</span>
             </div>
-            <button className="border-2 border-black bg-[#A7C7FF] px-4 py-2 text-sm font-black uppercase shadow-[4px_4px_0px_#000]">Early Access</button>
+            <div className="flex items-center gap-3">
+              <button className="hidden border-2 border-black bg-[#FFFDF8] px-4 py-2 text-sm font-black uppercase shadow-[4px_4px_0px_#000] transition-transform hover:-translate-y-0.5 md:inline-flex">Sign In</button>
+              <button className="border-2 border-black bg-[#A7C7FF] px-4 py-2 text-sm font-black uppercase shadow-[4px_4px_0px_#000] transition-transform hover:-translate-y-0.5">Early Access</button>
+            </div>
           </nav>
 
           <div className="grid min-h-[calc(100vh-92px)] items-center gap-10 py-8 lg:grid-cols-2 lg:py-10">
