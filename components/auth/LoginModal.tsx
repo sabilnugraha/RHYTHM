@@ -47,6 +47,41 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
           </button>
         </div>
 
+        <div className="mb-5 grid gap-3">
+          <button
+            type="button"
+            className="flex w-full items-center justify-center gap-3 border-2 border-black bg-white px-4 py-3 text-sm font-black uppercase tracking-wider shadow-[3px_3px_0px_#000] transition-transform hover:-translate-y-0.5"
+          >
+            <span className="flex h-6 w-6 items-center justify-center rounded-full border-2 border-black bg-[#FFFDF8] text-xs">G</span>
+            Continue with Google
+          </button>
+          <button
+            type="button"
+            className="flex w-full items-center justify-center gap-3 border-2 border-black bg-[#A7C7FF] px-4 py-3 text-sm font-black uppercase tracking-wider shadow-[3px_3px_0px_#000] transition-transform hover:-translate-y-0.5"
+          >
+            <span className="grid h-6 w-6 grid-cols-2 gap-0.5 border-2 border-black bg-white p-0.5">
+              <span className="bg-[#F25022]" />
+              <span className="bg-[#7FBA00]" />
+              <span className="bg-[#00A4EF]" />
+              <span className="bg-[#FFB900]" />
+            </span>
+            Continue with Microsoft
+          </button>
+          <button
+            type="button"
+            className="flex w-full items-center justify-center gap-3 border-2 border-black bg-[#CDEFD7] px-4 py-3 text-sm font-black uppercase tracking-wider shadow-[3px_3px_0px_#000] transition-transform hover:-translate-y-0.5"
+          >
+            <span className="flex h-6 w-6 items-center justify-center border-2 border-black bg-[#FFFDF8] text-xs">↗</span>
+            Company SSO
+          </button>
+        </div>
+
+        <div className="mb-5 flex items-center gap-3">
+          <div className="h-0.5 flex-1 bg-black" />
+          <span className="text-[10px] font-black uppercase tracking-[0.18em] text-neutral-600">or use email</span>
+          <div className="h-0.5 flex-1 bg-black" />
+        </div>
+
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label className="mb-2 block text-xs font-black uppercase tracking-wider" htmlFor="login-email">
