@@ -33,7 +33,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
             </p>
             <h2 className="text-3xl font-black tracking-[-0.04em]">Sign In</h2>
             <p className="mt-1 max-w-xl text-sm leading-6 text-neutral-700">
-              Masuk ke workspace internal RHYTHM. Integrasi backend menyusul.
+              Access your RHYTHM workspace securely.
             </p>
           </div>
 
@@ -47,37 +47,39 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
           </button>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-[0.9fr_1.1fr] md:items-start">
-          <section className="border-2 border-black bg-[#F6F1E8] p-4 shadow-[4px_4px_0px_#000]">
-            <h3 className="mb-3 text-xs font-black uppercase tracking-[0.18em] text-neutral-700">Single Sign-On</h3>
-            <div className="grid gap-3">
-              <button
-                type="button"
-                className="flex w-full items-center justify-center gap-3 border-2 border-black bg-white px-4 py-3 text-xs font-black uppercase tracking-wider shadow-[3px_3px_0px_#000] transition-transform hover:-translate-y-0.5 lg:text-sm"
-              >
-                <span className="flex h-6 w-6 items-center justify-center rounded-full border-2 border-black bg-[#FFFDF8] text-xs">G</span>
-                Google
-              </button>
-              <button
-                type="button"
-                className="flex w-full items-center justify-center gap-3 border-2 border-black bg-[#A7C7FF] px-4 py-3 text-xs font-black uppercase tracking-wider shadow-[3px_3px_0px_#000] transition-transform hover:-translate-y-0.5 lg:text-sm"
-              >
-                <span className="grid h-6 w-6 grid-cols-2 gap-0.5 border-2 border-black bg-white p-0.5">
-                  <span className="bg-[#F25022]" />
-                  <span className="bg-[#7FBA00]" />
-                  <span className="bg-[#00A4EF]" />
-                  <span className="bg-[#FFB900]" />
-                </span>
-                Microsoft
-              </button>
+        <div className="grid gap-5 md:grid-cols-[0.9fr_1.1fr] md:items-stretch">
+          <section className="flex min-h-[328px] flex-col justify-center border-2 border-black bg-[#F6F1E8] p-5 shadow-[4px_4px_0px_#000]">
+            <div>
+              <h3 className="mb-2 text-xs font-black uppercase tracking-[0.18em] text-neutral-700">Single Sign-On</h3>
+              <p className="mb-5 text-sm font-bold leading-6 text-neutral-600">
+                Continue with your organization identity provider.
+              </p>
+              <div className="grid gap-3">
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-center gap-3 border-2 border-black bg-white px-4 py-3 text-xs font-black uppercase tracking-wider shadow-[3px_3px_0px_#000] transition-transform hover:-translate-y-0.5 lg:text-sm"
+                >
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full border-2 border-black bg-[#FFFDF8] text-xs">G</span>
+                  Google
+                </button>
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-center gap-3 border-2 border-black bg-[#A7C7FF] px-4 py-3 text-xs font-black uppercase tracking-wider shadow-[3px_3px_0px_#000] transition-transform hover:-translate-y-0.5 lg:text-sm"
+                >
+                  <span className="grid h-6 w-6 grid-cols-2 gap-0.5 border-2 border-black bg-white p-0.5">
+                    <span className="bg-[#F25022]" />
+                    <span className="bg-[#7FBA00]" />
+                    <span className="bg-[#00A4EF]" />
+                    <span className="bg-[#FFB900]" />
+                  </span>
+                  Microsoft
+                </button>
+              </div>
             </div>
-            <p className="mt-4 text-xs font-bold leading-5 text-neutral-600">
-              SSO akan diaktifkan setelah integrasi authentication backend selesai.
-            </p>
           </section>
 
-          <section className="border-2 border-black bg-[#FFFDF8] p-4 shadow-[4px_4px_0px_#000]">
-            <h3 className="mb-3 text-xs font-black uppercase tracking-[0.18em] text-neutral-700">Email Login</h3>
+          <section className="flex min-h-[328px] flex-col justify-center border-2 border-black bg-[#FFFDF8] p-5 shadow-[4px_4px_0px_#000]">
+            <h3 className="mb-4 text-xs font-black uppercase tracking-[0.18em] text-neutral-700">Email Login</h3>
             <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
                 <label className="mb-2 block text-xs font-black uppercase tracking-wider" htmlFor="login-email">
