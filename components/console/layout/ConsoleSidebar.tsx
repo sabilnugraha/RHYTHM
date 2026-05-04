@@ -88,7 +88,7 @@ export function ConsoleSidebar({ activeSection, isDarkMode, onToggleDarkMode, on
   const controlTheme = isDarkMode ? 'bg-white/5 text-[#F7F2E8]' : 'bg-black/[0.03] text-[#111216]';
 
   return (
-    <aside className={`sticky top-0 hidden h-screen shrink-0 pr-2 transition-all duration-200 lg:block ${isExpanded ? 'w-56' : 'w-16'}`}>
+    <aside className={`hidden h-screen shrink-0 pr-2 transition-all duration-200 lg:block ${isExpanded ? 'w-56' : 'w-16'}`}>
       <div className={`flex h-full max-h-screen flex-col rounded-r-xl border-y border-r border-black/25 p-2 ${sidebarTheme}`}>
         <div className="shrink-0">
           <div className="mb-2 flex items-center justify-between gap-1.5">
@@ -145,7 +145,7 @@ export function ConsoleSidebar({ activeSection, isDarkMode, onToggleDarkMode, on
         </div>
 
         <div className="min-h-0 flex-1 overflow-hidden">
-          <nav className="h-full space-y-0.5 overflow-y-auto pr-0.5">
+          <nav className={`console-scrollbar ${isDarkMode ? 'console-scrollbar-dark' : ''} h-full space-y-0.5 overflow-y-auto pr-1`}>
             {menu.map((item) => {
               const isActive = activeSection === item.section;
               const isOpen = openSections[item.section];
