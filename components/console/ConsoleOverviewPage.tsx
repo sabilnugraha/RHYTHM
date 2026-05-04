@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import { ConsoleShell } from './layout/ConsoleShell';
 import { OverviewContent } from './overview/OverviewContent';
+import { PackageStudioContent } from './pages/PackageStudioContent';
 import { PlaceholderContent } from './pages/PlaceholderContent';
 
 export type ConsoleTab = {
@@ -46,6 +47,18 @@ export function ConsoleOverviewPage() {
 
   const activeTab = tabs.find((tab) => tab.id === activeTabId) ?? defaultTab;
 
+  function renderTabContent(tab: ConsoleTab) {
+    if (tab.id === 'overview') {
+      return <OverviewContent />;
+    }
+
+    if (tab.section === 'Package Studio') {
+      return <PackageStudioContent tab={tab} />;
+    }
+
+    return <PlaceholderContent tab={tab} />;
+  }
+
   return (
     <ConsoleShell
       tabs={tabs}
@@ -57,7 +70,7 @@ export function ConsoleOverviewPage() {
       onSelectTab={setActiveTabId}
       onCloseTab={closeTab}
     >
-      {activeTab.id === 'overview' ? <OverviewContent /> : <PlaceholderContent tab={activeTab} />}
+      {renderTabContent(activeTab)}
     </ConsoleShell>
   );
 }
