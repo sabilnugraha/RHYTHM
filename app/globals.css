@@ -21,6 +21,12 @@ button {
 
 .console-scrollbar {
   scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.console-scrollbar:hover,
+.console-scrollbar:focus,
+.console-scrollbar:focus-within {
   scrollbar-color: #9A9A9A transparent;
 }
 
@@ -34,19 +40,31 @@ button {
 }
 
 .console-scrollbar::-webkit-scrollbar-thumb {
-  background: #9A9A9A;
+  background: transparent;
   border: 2px solid transparent;
   border-radius: 999px;
   background-clip: padding-box;
 }
 
-.console-scrollbar::-webkit-scrollbar-thumb:hover {
+.console-scrollbar:hover::-webkit-scrollbar-thumb,
+.console-scrollbar:focus::-webkit-scrollbar-thumb,
+.console-scrollbar:focus-within::-webkit-scrollbar-thumb {
+  background: #9A9A9A;
+}
+
+.console-scrollbar:hover::-webkit-scrollbar-thumb:hover,
+.console-scrollbar:focus::-webkit-scrollbar-thumb:hover,
+.console-scrollbar:focus-within::-webkit-scrollbar-thumb:hover {
   background: #7F7F7F;
-  border: 2px solid transparent;
-  background-clip: padding-box;
 }
 
 .console-scrollbar-dark {
+  scrollbar-color: transparent transparent;
+}
+
+.console-scrollbar-dark:hover,
+.console-scrollbar-dark:focus,
+.console-scrollbar-dark:focus-within {
   scrollbar-color: #4B5565 transparent;
 }
 
@@ -55,14 +73,20 @@ button {
 }
 
 .console-scrollbar-dark::-webkit-scrollbar-thumb {
-  background: #4B5565;
+  background: transparent;
   border: 2px solid transparent;
   border-radius: 999px;
   background-clip: padding-box;
 }
 
-.console-scrollbar-dark::-webkit-scrollbar-thumb:hover {
+.console-scrollbar-dark:hover::-webkit-scrollbar-thumb,
+.console-scrollbar-dark:focus::-webkit-scrollbar-thumb,
+.console-scrollbar-dark:focus-within::-webkit-scrollbar-thumb {
+  background: #4B5565;
+}
+
+.console-scrollbar-dark:hover::-webkit-scrollbar-thumb:hover,
+.console-scrollbar-dark:focus::-webkit-scrollbar-thumb:hover,
+.console-scrollbar-dark:focus-within::-webkit-scrollbar-thumb:hover {
   background: #64748B;
-  border: 2px solid transparent;
-  background-clip: padding-box;
 }
