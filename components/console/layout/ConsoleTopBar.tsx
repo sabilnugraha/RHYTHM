@@ -4,41 +4,45 @@ type ConsoleTopBarProps = {
 };
 
 export function ConsoleTopBar({ isDarkMode, onToggleDarkMode }: ConsoleTopBarProps) {
-  const topBarTheme = isDarkMode ? 'bg-[#141720] text-[#F7F2E8]' : 'bg-[#FFFDF8] text-[#111216]';
-  const searchTheme = isDarkMode ? 'bg-[#080A0F] text-white' : 'bg-white text-[#111216]';
+  const searchTheme = isDarkMode
+    ? 'border-white/15 bg-white/6 text-[#F7F2E8] placeholder:text-white/35'
+    : 'border-black/15 bg-white/75 text-[#111216] placeholder:text-neutral-400';
 
   return (
-    <header className={`mb-1.5 flex items-center gap-1.5 rounded-xl border-2 border-black px-2 py-1.5 shadow-[3px_3px_0px_#000] ${topBarTheme}`}>
-      <div className="min-w-40 px-1">
-        <p className="text-[7px] font-black uppercase tracking-[0.16em] opacity-60">RHYTHM</p>
-        <h1 className="text-xs font-black tracking-[-0.03em]">Platform Console</h1>
-      </div>
-
-      <button className="hidden rounded-lg border-2 border-black bg-[#A3FF12] px-2.5 py-1 text-[9px] font-black uppercase text-black shadow-[2px_2px_0px_#000] md:inline-flex">
-        PT Demo ▾
-      </button>
-
-      <div className="hidden flex-1 px-0.5 lg:block">
-        <div className={`rounded-lg border-2 border-black px-2.5 py-1.5 text-[10px] font-bold opacity-95 shadow-[2px_2px_0px_#000] ${searchTheme}`}>
-          Ask RHYTHM or search command...
+    <header className="mb-1.5 flex items-center gap-2 px-1 py-1">
+      <div className="min-w-0 flex-1">
+        <div className={`flex h-8 items-center rounded-lg border px-3 text-[10px] font-semibold ${searchTheme}`}>
+          <span className="truncate opacity-70">Ask RHYTHM or search command...</span>
         </div>
       </div>
 
-      <div className="ml-auto flex items-center gap-1 px-0.5">
-        <button className="rounded-md border-2 border-black bg-[#FF5A1F] px-2 py-1 text-[9px] font-black text-black shadow-[2px_2px_0px_#000]">3</button>
-        <button
-          type="button"
-          aria-label="Toggle dark mode"
-          aria-pressed={isDarkMode}
-          onClick={onToggleDarkMode}
-          className={`flex h-7 w-14 items-center rounded-full border-2 border-black p-0.5 shadow-[2px_2px_0px_#000] transition-colors ${isDarkMode ? 'justify-end bg-[#00C2FF]' : 'justify-start bg-[#FFE600]'}`}
+      <button
+        type="button"
+        aria-label="Toggle dark mode"
+        aria-pressed={isDarkMode}
+        onClick={onToggleDarkMode}
+        className={`relative h-6 w-11 rounded-full border transition-colors ${
+          isDarkMode ? 'border-white/15 bg-[#263244]' : 'border-black/15 bg-[#E9E1D2]'
+        }`}
+      >
+        <span
+          className={`absolute top-0.5 grid h-5 w-5 place-items-center rounded-full text-[9px] transition-all ${
+            isDarkMode ? 'left-5 bg-[#00C2FF] text-black' : 'left-0.5 bg-[#FFE600] text-black'
+          }`}
         >
-          <span className="grid h-5 w-5 place-items-center rounded-full border-2 border-black bg-white text-[9px] font-black text-black">
-            {isDarkMode ? '☾' : '☀'}
-          </span>
-        </button>
-        <button className="rounded-md border-2 border-black bg-[#00C2FF] px-2 py-1 text-[9px] font-black uppercase text-black shadow-[2px_2px_0px_#000]">Sabil</button>
-      </div>
+          {isDarkMode ? '☾' : '☀'}
+        </span>
+      </button>
+
+      <button
+        type="button"
+        aria-label="User profile"
+        className={`grid h-8 w-8 place-items-center overflow-hidden rounded-full border text-[10px] font-black ${
+          isDarkMode ? 'border-white/15 bg-[#1E2633] text-[#F7F2E8]' : 'border-black/15 bg-[#F0E8D8] text-[#111216]'
+        }`}
+      >
+        SB
+      </button>
     </header>
   );
 }
