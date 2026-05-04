@@ -57,7 +57,7 @@ export function ConsoleOverviewPage() {
       onSelectTab={setActiveTabId}
       onCloseTab={closeTab}
     >
-      {activeTab.id === 'overview' ? <OverviewContent isDarkMode={isDarkMode} /> : <PlaceholderContent tab={activeTab} />}
+      {activeTab.id === 'overview' ? <OverviewContent /> : <PlaceholderContent tab={activeTab} />}
     </ConsoleShell>
   );
 }
