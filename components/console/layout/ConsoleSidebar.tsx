@@ -129,11 +129,12 @@ export function ConsoleSidebar({ activeSection, isDarkMode, onOpenTab }: Console
                     {item.children.map((child) => (
                       <button
                         key={child.id}
-                        className={`flex w-full items-center justify-between rounded-md px-2 py-1 text-left text-[9px] font-medium normal-case tracking-normal transition ${hoverTheme}`}
+                        className={`flex w-full items-center justify-between rounded-md px-2 py-0.5 text-left text-[9px] font-medium normal-case leading-3 tracking-normal transition ${hoverTheme}`}
+                        style={{ fontSize: '9px', lineHeight: '12px' }}
                         onClick={() => onOpenTab({ id: child.id, label: child.label, section: item.section, badge: child.badge })}
                       >
                         <span className="truncate">{child.label}</span>
-                        {child.badge ? <span className="ml-1 rounded bg-[#FFE600] px-1 text-[7px] font-black text-black">{child.badge}</span> : null}
+                        {child.badge ? <span className="ml-1 rounded bg-[#FFE600] px-1 text-[7px] font-black leading-3 text-black">{child.badge}</span> : null}
                       </button>
                     ))}
                   </div>
