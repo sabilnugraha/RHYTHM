@@ -1,17 +1,17 @@
 const items = [
-  { label: 'Overdue Requests', value: '3', tone: 'bg-[#FFD6A5]' },
-  { label: 'Workspace Issues', value: '2', tone: 'bg-[#F8B4B4]' },
-  { label: 'My SLA', value: '94%', tone: 'bg-[#CDEFD7]' },
-  { label: 'Unread Inbox', value: '5', tone: 'bg-[#A7C7FF]' },
+  { label: 'Overdue Requests', value: '3', tone: 'bg-[#FFE600]' },
+  { label: 'Workspace Issues', value: '2', tone: 'bg-[#FF5A1F]' },
+  { label: 'My SLA', value: '94%', tone: 'bg-[#A3FF12]' },
+  { label: 'Unread Inbox', value: '5', tone: 'bg-[#00C2FF]' },
 ];
 
 export function AttentionCards() {
   return (
-    <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+    <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-4">
       {items.map((item) => (
-        <div key={item.label} className={`${item.tone} rounded-2xl border border-black/20 p-3 shadow-[0_10px_24px_rgba(20,20,20,0.08)] ring-1 ring-white/40`}>
-          <div className="text-2xl font-black tracking-[-0.04em]">{item.value}</div>
-          <div className="mt-0.5 text-[10px] font-black uppercase tracking-wider text-neutral-700">{item.label}</div>
+        <div key={item.label} className={`${item.tone} rounded-xl border-2 border-black p-2 text-black shadow-[2px_2px_0px_#000]`}>
+          <div className="text-xl font-black tracking-[-0.04em]">{item.value}</div>
+          <div className="mt-0.5 text-[8px] font-black uppercase tracking-wide">{item.label}</div>
         </div>
       ))}
     </div>
