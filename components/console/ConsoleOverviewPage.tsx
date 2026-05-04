@@ -24,6 +24,7 @@ const defaultTab: ConsoleTab = {
 export function ConsoleOverviewPage() {
   const [tabs, setTabs] = useState<ConsoleTab[]>([defaultTab]);
   const [activeTabId, setActiveTabId] = useState(defaultTab.id);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   function openTab(tab: ConsoleTab) {
     setTabs((currentTabs) => {
@@ -50,11 +51,13 @@ export function ConsoleOverviewPage() {
       tabs={tabs}
       activeTabId={activeTabId}
       activeSection={activeTab.section}
+      isDarkMode={isDarkMode}
+      onToggleDarkMode={() => setIsDarkMode((value) => !value)}
       onOpenTab={openTab}
       onSelectTab={setActiveTabId}
       onCloseTab={closeTab}
     >
-      {activeTab.id === 'overview' ? <OverviewContent /> : <PlaceholderContent tab={activeTab} />}
+      {activeTab.id === 'overview' ? <OverviewContent isDarkMode={isDarkMode} /> : <PlaceholderContent tab={activeTab} />}
     </ConsoleShell>
   );
 }
