@@ -7,32 +7,42 @@ import type { ConsoleTab } from '../ConsoleOverviewPage';
 const menu = [
   { id: 'overview', label: 'Overview', icon: '⌂', section: 'Overview' },
   {
-    id: 'operations',
-    label: 'Operations',
+    id: 'workspace-lobby',
+    label: 'Workspace Lobby',
     icon: '▦',
-    section: 'Operations',
+    section: 'Workspace Lobby',
     children: [
-      { id: 'employees', label: 'Employees' },
-      { id: 'attendance', label: 'Attendance' },
-      { id: 'leave', label: 'Leave', badge: '!' },
-      { id: 'payroll', label: 'Payroll', badge: '2' },
+      { id: 'workspaces', label: 'All Workspaces' },
+      { id: 'workspace-abc', label: 'ABC Group', badge: '!' },
+      { id: 'workspace-xyz', label: 'XYZ Logistics', badge: '2' },
+      { id: 'workspace-demo', label: 'Demo Client' },
     ],
   },
   {
-    id: 'studio',
-    label: 'Studio',
+    id: 'agent-studio',
+    label: 'Agent Studio',
     icon: '✦',
-    section: 'Studio',
+    section: 'Agent Studio',
     children: [
-      { id: 'data-model', label: 'Data Model' },
-      { id: 'forms', label: 'Forms' },
-      { id: 'workflows', label: 'Workflows' },
-      { id: 'rules-logic', label: 'Rules & Logic' },
-      { id: 'agents', label: 'Agents' },
+      { id: 'agents', label: 'All Agents' },
+      { id: 'agent-sla', label: 'SLA Watcher' },
+      { id: 'agent-package', label: 'Package Builder' },
     ],
   },
-  { id: 'intelligence', label: 'Intelligence', icon: '●', section: 'Intelligence' },
-  { id: 'governance', label: 'Governance', icon: '◎', section: 'Governance' },
+  { id: 'sla', label: 'SLA & Performance', icon: '↗', section: 'SLA & Performance' },
+  { id: 'platform-users', label: 'Platform Users', icon: '◎', section: 'Platform Users' },
+  {
+    id: 'package-studio',
+    label: 'Package Studio',
+    icon: '◈',
+    section: 'Package Studio',
+    children: [
+      { id: 'packages', label: 'All Packages' },
+      { id: 'package-hris', label: 'HRIS Basic' },
+      { id: 'package-mobile', label: 'Mobile Attendance' },
+    ],
+  },
+  { id: 'audit-logs', label: 'Audit Logs', icon: '☰', section: 'Audit Logs' },
   { id: 'settings', label: 'Settings', icon: '⚙', section: 'Settings' },
 ];
 
@@ -45,8 +55,9 @@ type ConsoleSidebarProps = {
 export function ConsoleSidebar({ activeSection, isDarkMode, onOpenTab }: ConsoleSidebarProps) {
   const [isExpanded, setIsExpanded] = useState(true);
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
-    Operations: true,
-    Studio: true,
+    'Workspace Lobby': true,
+    'Agent Studio': true,
+    'Package Studio': false,
   });
 
   function toggleSection(section: string) {
