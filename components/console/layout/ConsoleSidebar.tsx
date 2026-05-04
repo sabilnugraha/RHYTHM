@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 import type { ConsoleTab } from '../ConsoleOverviewPage';
 
@@ -49,11 +49,13 @@ const menu = [
 type ConsoleSidebarProps = {
   activeSection: string;
   isDarkMode: boolean;
+  onToggleDarkMode: () => void;
   onOpenTab: (tab: ConsoleTab) => void;
 };
 
-export function ConsoleSidebar({ activeSection, isDarkMode, onOpenTab }: ConsoleSidebarProps) {
+export function ConsoleSidebar({ activeSection, isDarkMode, onToggleDarkMode, onOpenTab }: ConsoleSidebarProps) {
   const [isExpanded, setIsExpanded] = useState(true);
+  const [searchValue, setSearchValue] = useState('');
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
     'Workspace Lobby': true,
     'Agent Studio': true,
@@ -64,14 +66,30 @@ export function ConsoleSidebar({ activeSection, isDarkMode, onOpenTab }: Console
     setOpenSections((current) => ({ ...current, [section]: !current[section] }));
   }
 
+  function submitSearch(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const query = searchValue.trim();
+
+    if (!query) {
+      return;
+    }
+
+    onOpenTab({
+      id: `search-${query.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || Date.now()}`,
+      label: `Search: ${query}`,
+      section: 'Search',
+    });
+  }
+
   const sidebarTheme = isDarkMode ? 'bg-[#10131B] text-[#F7F2E8]' : 'bg-[#FFFDF8] text-[#111216]';
   const subtleText = isDarkMode ? 'text-[#AEB4C0]' : 'text-neutral-500';
   const hoverTheme = isDarkMode ? 'hover:bg-white/7 hover:text-[#F7F2E8]' : 'hover:bg-black/5 hover:text-[#111216]';
   const activeTheme = isDarkMode ? 'bg-[#1E2633] text-[#F7F2E8]' : 'bg-[#F0E8D8] text-[#111216]';
+  const controlTheme = isDarkMode ? 'bg-white/5 text-[#F7F2E8]' : 'bg-black/[0.03] text-[#111216]';
 
   return (
     <aside className={`hidden shrink-0 pr-2 transition-all duration-200 lg:block ${isExpanded ? 'w-56' : 'w-16'}`}>
-      <div className={`h-full rounded-r-xl border-y border-r border-black/25 p-2 ${sidebarTheme}`}>
+      <div className={`flex h-full flex-col rounded-r-xl border-y border-r border-black/25 p-2 ${sidebarTheme}`}>
         <div className="mb-2 flex items-center justify-between gap-1.5">
           <button
             className="flex min-w-0 flex-1 items-center gap-2 rounded-lg px-1.5 py-1.5 text-left transition hover:bg-black/5"
@@ -94,14 +112,37 @@ export function ConsoleSidebar({ activeSection, isDarkMode, onOpenTab }: Console
           </button>
         </div>
 
+        <form onSubmit={submitSearch} className="mb-2">
+          {isExpanded ? (
+            <label className={`flex h-7 items-center gap-1.5 rounded-lg border border-black/10 px-2 ${controlTheme}`}>
+              <span className={`text-[10px] ${subtleText}`}>⌕</span>
+              <input
+                value={searchValue}
+                onChange={(event) => setSearchValue(event.target.value)}
+                placeholder="Search..."
+                className="min-w-0 flex-1 bg-transparent text-[9px] font-medium outline-none placeholder:text-current placeholder:opacity-45"
+              />
+            </label>
+          ) : (
+            <button
+              type="button"
+              className={`grid h-7 w-full place-items-center rounded-lg border border-black/10 ${controlTheme}`}
+              aria-label="Search"
+              title="Search"
+            >
+              ⌕
+            </button>
+          )}
+        </form>
+
         {isExpanded ? (
-          <div className={`mb-2 rounded-lg border border-black/10 px-2 py-1.5 ${isDarkMode ? 'bg-white/5' : 'bg-black/[0.03]'}`}>
+          <div className={`mb-2 rounded-lg border border-black/10 px-2 py-1.5 ${controlTheme}`}>
             <p className={`text-[7px] font-black uppercase tracking-[0.14em] ${subtleText}`}>Control Room</p>
             <p className="mt-0.5 text-[10px] font-semibold leading-3.5">Operate, build, and govern.</p>
           </div>
         ) : null}
 
-        <nav className="space-y-0.5">
+        <nav className="min-h-0 flex-1 space-y-0.5 overflow-y-auto pr-0.5">
           {menu.map((item) => {
             const isActive = activeSection === item.section;
             const isOpen = openSections[item.section];
@@ -143,6 +184,40 @@ export function ConsoleSidebar({ activeSection, isDarkMode, onOpenTab }: Console
             );
           })}
         </nav>
+
+        <div className={`mt-2 border-t pt-2 ${isDarkMode ? 'border-white/10' : 'border-black/10'}`}>
+          <div className={`flex items-center gap-2 rounded-lg px-1.5 py-1.5 ${controlTheme}`}>
+            <button
+              type="button"
+              aria-label="Toggle dark mode"
+              aria-pressed={isDarkMode}
+              onClick={onToggleDarkMode}
+              className={`relative h-5 w-9 shrink-0 rounded-full border transition-colors ${
+                isDarkMode ? 'border-white/15 bg-[#263244]' : 'border-black/15 bg-[#E9E1D2]'
+              }`}
+            >
+              <span
+                className={`absolute top-0.5 grid h-4 w-4 place-items-center rounded-full text-[8px] transition-all ${
+                  isDarkMode ? 'left-4 bg-[#00C2FF] text-black' : 'left-0.5 bg-[#FFE600] text-black'
+                }`}
+              >
+                {isDarkMode ? '☾' : '☀'}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              aria-label="User profile"
+              className={`grid h-6 w-6 shrink-0 place-items-center overflow-hidden rounded-full text-[8px] font-black ${
+                isDarkMode ? 'bg-[#1E2633] text-[#F7F2E8]' : 'bg-[#F0E8D8] text-[#111216]'
+              }`}
+            >
+              SB
+            </button>
+
+            {isExpanded ? <span className={`min-w-0 truncate text-[9px] font-semibold ${subtleText}`}>Sabil</span> : null}
+          </div>
+        </div>
       </div>
     </aside>
   );
