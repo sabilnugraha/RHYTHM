@@ -7,12 +7,12 @@ const activities = [
 
 export function RecentActivity() {
   return (
-    <section className="border-2 border-black bg-[#FFFDF8] p-4 shadow-[4px_4px_0px_#000]">
-      <h3 className="mb-3 text-sm font-black uppercase tracking-wider">Recent Activity</h3>
-      <div className="space-y-3">
+    <section className="rounded-xl border-2 border-black bg-[#FFFDF8] p-2.5 shadow-[2px_2px_0px_#000]">
+      <h3 className="mb-2 text-[10px] font-black uppercase tracking-wide">Recent Activity</h3>
+      <div className="space-y-1.5">
         {activities.map((item) => (
-          <div key={item} className="flex gap-3 border-2 border-black bg-[#F6F1E8] p-3 text-sm font-bold shadow-[3px_3px_0px_#000]">
-            <span className="h-3 w-3 shrink-0 border-2 border-black bg-[#18A999]" />
+          <div key={item} className="flex gap-2 rounded-lg border border-black bg-[#F6F1E8] p-2 text-[10px] font-bold leading-4 shadow-[1.5px_1.5px_0px_#000]">
+            <span className="mt-0.5 h-2.5 w-2.5 shrink-0 border border-black bg-[#00C2FF]" />
             <span>{item}</span>
           </div>
         ))}
