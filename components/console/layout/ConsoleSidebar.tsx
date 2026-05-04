@@ -5,128 +5,133 @@ import { useState } from 'react';
 import type { ConsoleTab } from '../ConsoleOverviewPage';
 
 const menu = [
-  { id: 'overview', label: 'Overview', icon: '⌂', section: 'Overview' },
+  { id: 'overview', label: 'Overview', icon: '⌂', section: 'Overview', color: 'bg-[#FFE600]' },
   {
-    id: 'workspace-lobby',
-    label: 'Workspace Lobby',
+    id: 'operations',
+    label: 'Operations',
     icon: '▦',
-    section: 'Workspace Lobby',
+    section: 'Operations',
+    color: 'bg-[#00D4FF]',
     children: [
-      { id: 'workspaces', label: 'All Workspaces' },
-      { id: 'workspace-abc', label: 'ABC Group', badge: '!' },
-      { id: 'workspace-xyz', label: 'XYZ Logistics', badge: '2' },
-      { id: 'workspace-demo', label: 'Demo Client' },
+      { id: 'employees', label: 'Employees' },
+      { id: 'attendance', label: 'Attendance' },
+      { id: 'leave', label: 'Leave', badge: '!' },
+      { id: 'payroll', label: 'Payroll', badge: '2' },
     ],
   },
   {
-    id: 'agent-studio',
-    label: 'Agent Studio',
+    id: 'studio',
+    label: 'Studio',
     icon: '✦',
-    section: 'Agent Studio',
+    section: 'Studio',
+    color: 'bg-[#FF4D1D]',
     children: [
-      { id: 'agents', label: 'All Agents' },
-      { id: 'agent-sla', label: 'SLA Watcher' },
-      { id: 'agent-package', label: 'Package Builder' },
+      { id: 'data-model', label: 'Data Model' },
+      { id: 'forms', label: 'Forms' },
+      { id: 'workflows', label: 'Workflows' },
+      { id: 'rules-logic', label: 'Rules & Logic' },
+      { id: 'agents', label: 'Agents' },
     ],
   },
-  { id: 'sla', label: 'SLA & Performance', icon: '↗', section: 'SLA & Performance' },
-  { id: 'platform-users', label: 'Platform Users', icon: '◎', section: 'Platform Users' },
-  {
-    id: 'package-studio',
-    label: 'Package Studio',
-    icon: '◈',
-    section: 'Package Studio',
-    children: [
-      { id: 'packages', label: 'All Packages' },
-      { id: 'package-hris', label: 'HRIS Basic' },
-      { id: 'package-mobile', label: 'Mobile Attendance' },
-    ],
-  },
-  { id: 'audit-logs', label: 'Audit Logs', icon: '☰', section: 'Audit Logs' },
-  { id: 'settings', label: 'Settings', icon: '⚙', section: 'Settings' },
+  { id: 'intelligence', label: 'Intelligence', icon: '●', section: 'Intelligence', color: 'bg-[#A3FF12]' },
+  { id: 'governance', label: 'Governance', icon: '◎', section: 'Governance', color: 'bg-[#A66BFF]' },
+  { id: 'settings', label: 'Settings', icon: '⚙', section: 'Settings', color: 'bg-[#FF4FB8]' },
 ];
 
 type ConsoleSidebarProps = {
   activeSection: string;
+  isDarkMode: boolean;
   onOpenTab: (tab: ConsoleTab) => void;
 };
 
-export function ConsoleSidebar({ activeSection, onOpenTab }: ConsoleSidebarProps) {
+export function ConsoleSidebar({ activeSection, isDarkMode, onOpenTab }: ConsoleSidebarProps) {
   const [isExpanded, setIsExpanded] = useState(true);
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
-    'Workspace Lobby': true,
-    'Agent Studio': true,
+    Operations: true,
+    Studio: true,
   });
 
   function toggleSection(section: string) {
     setOpenSections((current) => ({ ...current, [section]: !current[section] }));
   }
 
+  const sidebarTheme = isDarkMode ? 'bg-[#15151A] text-[#FFF7E8]' : 'bg-[#FFFDF8] text-[#101014]';
+  const inactiveTheme = isDarkMode ? 'bg-[#25252C] text-[#FFF7E8]' : 'bg-white text-[#101014]';
+
   return (
-    <aside className={`hidden shrink-0 bg-[#141414] p-3 text-[#F8F4EC] transition-all duration-200 lg:block ${isExpanded ? 'w-64' : 'w-20'}`}>
-      <div className="mb-4 flex items-center justify-between gap-2">
-        <button
-          className="flex min-w-0 flex-1 items-center gap-2 rounded-2xl px-2 py-2 text-left"
-          onClick={() => onOpenTab({ id: 'overview', label: 'Overview', section: 'Overview', pinned: true })}
-        >
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#18A999] text-lg font-black text-white">R</span>
-          {isExpanded ? (
-            <span>
-              <span className="block text-sm font-black tracking-[-0.02em]">RHYTHM</span>
-              <span className="block text-[9px] font-black uppercase tracking-[0.22em] text-white/50">Console</span>
-            </span>
-          ) : null}
-        </button>
-        <button
-          className="rounded-xl border border-white/10 bg-white/5 px-2 py-1 text-xs font-black text-white/70 hover:bg-white/10"
-          onClick={() => setIsExpanded((value) => !value)}
-          aria-label="Toggle sidebar"
-        >
-          {isExpanded ? '‹' : '›'}
-        </button>
-      </div>
+    <aside className={`hidden shrink-0 p-3 transition-all duration-200 lg:block ${isExpanded ? 'w-72' : 'w-24'}`}>
+      <div className={`h-full rounded-[30px] border-[3px] border-black p-3 shadow-[8px_8px_0px_#000] ${sidebarTheme}`}>
+        <div className="mb-4 flex items-center justify-between gap-2">
+          <button
+            className="flex min-w-0 flex-1 items-center gap-3 rounded-2xl border-[3px] border-black bg-[#FFE600] px-2 py-2 text-left text-black shadow-[4px_4px_0px_#000]"
+            onClick={() => onOpenTab({ id: 'overview', label: 'Overview', section: 'Overview', pinned: true })}
+          >
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-[3px] border-black bg-white text-lg font-black text-black">R</span>
+            {isExpanded ? (
+              <span>
+                <span className="block text-sm font-black tracking-[-0.02em]">RHYTHM</span>
+                <span className="block text-[9px] font-black uppercase tracking-[0.22em]">Console</span>
+              </span>
+            ) : null}
+          </button>
+          <button
+            className="rounded-xl border-[3px] border-black bg-[#00D4FF] px-2 py-1 text-xs font-black text-black shadow-[3px_3px_0px_#000]"
+            onClick={() => setIsExpanded((value) => !value)}
+            aria-label="Toggle sidebar"
+          >
+            {isExpanded ? '‹' : '›'}
+          </button>
+        </div>
 
-      <nav className="space-y-1.5">
-        {menu.map((item) => {
-          const isActive = activeSection === item.section;
-          const isOpen = openSections[item.section];
+        {isExpanded ? (
+          <div className="mb-4 rounded-[24px] border-[3px] border-black bg-[#FF4D1D] p-3 text-black shadow-[4px_4px_0px_#000]">
+            <p className="text-[9px] font-black uppercase tracking-[0.18em]">Control Room</p>
+            <p className="mt-1 text-sm font-black leading-5">Operate, build, and govern from one console.</p>
+          </div>
+        ) : null}
 
-          return (
-            <div key={item.id}>
-              <div className={`group flex items-center rounded-xl text-[11px] font-bold uppercase tracking-wide transition ${isActive ? 'bg-[#F8F4EC] text-[#141414]' : 'text-white/62 hover:bg-white/8 hover:text-white'}`}>
-                <button
-                  className={`flex min-w-0 flex-1 items-center gap-3 px-3 py-2 text-left ${!isExpanded ? 'justify-center' : ''}`}
-                  onClick={() => onOpenTab({ id: item.id, label: item.label, section: item.section, pinned: item.id === 'overview' })}
-                  title={item.label}
-                >
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-current/20 text-sm">{item.icon}</span>
-                  {isExpanded ? <span className="truncate">{item.label}</span> : null}
-                </button>
-                {item.children && isExpanded ? (
-                  <button className="px-3 py-2 text-xs" onClick={() => toggleSection(item.section)}>
-                    {isOpen ? '−' : '+'}
+        <nav className="space-y-2">
+          {menu.map((item) => {
+            const isActive = activeSection === item.section;
+            const isOpen = openSections[item.section];
+
+            return (
+              <div key={item.id}>
+                <div className={`group flex items-center rounded-2xl border-[3px] border-black text-[11px] font-black uppercase tracking-wide shadow-[4px_4px_0px_#000] transition ${isActive ? `${item.color} text-black` : inactiveTheme}`}>
+                  <button
+                    className={`flex min-w-0 flex-1 items-center gap-3 px-3 py-2.5 text-left ${!isExpanded ? 'justify-center' : ''}`}
+                    onClick={() => onOpenTab({ id: item.id, label: item.label, section: item.section, pinned: item.id === 'overview' })}
+                    title={item.label}
+                  >
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border-[2px] border-black bg-white text-sm text-black">{item.icon}</span>
+                    {isExpanded ? <span className="truncate">{item.label}</span> : null}
                   </button>
+                  {item.children && isExpanded ? (
+                    <button className="px-3 py-2 text-xs" onClick={() => toggleSection(item.section)}>
+                      {isOpen ? '−' : '+'}
+                    </button>
+                  ) : null}
+                </div>
+
+                {item.children && isOpen && isExpanded ? (
+                  <div className="ml-6 mt-2 space-y-1.5 border-l-[3px] border-black pl-3">
+                    {item.children.map((child) => (
+                      <button
+                        key={child.id}
+                        className={`flex w-full items-center justify-between rounded-xl border-[2px] border-black px-3 py-2 text-left text-[11px] font-black uppercase tracking-wide shadow-[3px_3px_0px_#000] transition-transform hover:-translate-y-0.5 ${isDarkMode ? 'bg-[#25252C] text-[#FFF7E8]' : 'bg-[#FFFDF8] text-[#101014]'}`}
+                        onClick={() => onOpenTab({ id: child.id, label: child.label, section: item.section, badge: child.badge })}
+                      >
+                        <span className="truncate">{child.label}</span>
+                        {child.badge ? <span className="ml-2 rounded-lg border-2 border-black bg-[#FFE600] px-1.5 py-0.5 text-[9px] font-black text-black">{child.badge}</span> : null}
+                      </button>
+                    ))}
+                  </div>
                 ) : null}
               </div>
-
-              {item.children && isOpen && isExpanded ? (
-                <div className="ml-6 mt-1 space-y-1 border-l border-white/10 pl-3">
-                  {item.children.map((child) => (
-                    <button
-                      key={child.id}
-                      className="flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left text-[11px] font-semibold uppercase tracking-wide text-white/55 hover:bg-white/8 hover:text-white"
-                      onClick={() => onOpenTab({ id: child.id, label: child.label, section: item.section, badge: child.badge })}
-                    >
-                      <span className="truncate">{child.label}</span>
-                      {child.badge ? <span className="ml-2 rounded bg-[#FFD6A5] px-1.5 py-0.5 text-[9px] font-black text-black">{child.badge}</span> : null}
-                    </button>
-                  ))}
-                </div>
-              ) : null}
-            </div>
-          );
-        })}
-      </nav>
+            );
+          })}
+        </nav>
+      </div>
     </aside>
   );
 }
