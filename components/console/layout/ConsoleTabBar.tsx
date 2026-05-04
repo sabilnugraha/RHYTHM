@@ -29,7 +29,7 @@ export function ConsoleTabBar({ tabs, activeTabId, isDarkMode, onSelectTab, onCl
             {tab.badge ? <span className="rounded bg-[#FFE600] px-1 text-[7px] text-black">{tab.badge}</span> : null}
             {!tab.pinned ? (
               <span
-                className="ml-0.5 text-[9px] leading-none opacity-45 hover:opacity-100"
+                className="ml-0.5 grid h-3.5 w-3.5 place-items-center rounded-sm bg-[#E5484D] text-[8px] font-bold leading-none text-white hover:bg-[#D63C42]"
                 onClick={(event) => {
                   event.stopPropagation();
                   onCloseTab(tab.id);
