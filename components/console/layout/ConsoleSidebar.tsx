@@ -125,11 +125,11 @@ export function ConsoleSidebar({ activeSection, isDarkMode, onOpenTab }: Console
                 </div>
 
                 {item.children && isOpen && isExpanded ? (
-                  <div className={`ml-4 mt-0.5 space-y-0.5 border-l pl-1.5 ${isDarkMode ? 'border-white/10' : 'border-black/10'}`}>
+                  <div className={`ml-7 mt-0.5 space-y-0.5 ${isDarkMode ? 'text-[#AEB4C0]' : 'text-neutral-500'}`}>
                     {item.children.map((child) => (
                       <button
                         key={child.id}
-                        className={`flex w-full items-center justify-between rounded-md px-2 py-1 text-left text-[9px] font-semibold uppercase tracking-wide transition ${subtleText} ${hoverTheme}`}
+                        className={`flex w-full items-center justify-between rounded-md px-2 py-1 text-left text-[9px] font-medium normal-case tracking-normal transition ${hoverTheme}`}
                         onClick={() => onOpenTab({ id: child.id, label: child.label, section: item.section, badge: child.badge })}
                       >
                         <span className="truncate">{child.label}</span>
