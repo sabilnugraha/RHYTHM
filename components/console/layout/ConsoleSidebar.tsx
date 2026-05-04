@@ -24,7 +24,7 @@ const menu = [
     label: 'Studio',
     icon: '✦',
     section: 'Studio',
-    color: 'bg-[#FF4D1D]',
+    color: 'bg-[#FF5A1F]',
     children: [
       { id: 'data-model', label: 'Data Model' },
       { id: 'forms', label: 'Forms' },
@@ -55,27 +55,27 @@ export function ConsoleSidebar({ activeSection, isDarkMode, onOpenTab }: Console
     setOpenSections((current) => ({ ...current, [section]: !current[section] }));
   }
 
-  const sidebarTheme = isDarkMode ? 'bg-[#15151A] text-[#FFF7E8]' : 'bg-[#FFFDF8] text-[#101014]';
-  const inactiveTheme = isDarkMode ? 'bg-[#25252C] text-[#FFF7E8]' : 'bg-white text-[#101014]';
+  const sidebarTheme = isDarkMode ? 'bg-[#12131A] text-[#F8F5EE]' : 'bg-[#FFFDF8] text-[#121216]';
+  const inactiveTheme = isDarkMode ? 'bg-[#1D1E27] text-[#EDE8DD]' : 'bg-white text-[#121216]';
 
   return (
-    <aside className={`hidden shrink-0 p-3 transition-all duration-200 lg:block ${isExpanded ? 'w-72' : 'w-24'}`}>
-      <div className={`h-full rounded-[30px] border-[3px] border-black p-3 shadow-[8px_8px_0px_#000] ${sidebarTheme}`}>
-        <div className="mb-4 flex items-center justify-between gap-2">
+    <aside className={`hidden shrink-0 pr-3 transition-all duration-200 lg:block ${isExpanded ? 'w-64' : 'w-20'}`}>
+      <div className={`h-full rounded-r-2xl border-y-2 border-r-2 border-black p-2.5 shadow-[4px_4px_0px_#000] ${sidebarTheme}`}>
+        <div className="mb-3 flex items-center justify-between gap-2">
           <button
-            className="flex min-w-0 flex-1 items-center gap-3 rounded-2xl border-[3px] border-black bg-[#FFE600] px-2 py-2 text-left text-black shadow-[4px_4px_0px_#000]"
+            className="flex min-w-0 flex-1 items-center gap-2 rounded-xl border-2 border-black bg-[#FFE600] px-2 py-1.5 text-left text-black shadow-[3px_3px_0px_#000]"
             onClick={() => onOpenTab({ id: 'overview', label: 'Overview', section: 'Overview', pinned: true })}
           >
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-[3px] border-black bg-white text-lg font-black text-black">R</span>
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border-2 border-black bg-white text-sm font-black text-black">R</span>
             {isExpanded ? (
               <span>
-                <span className="block text-sm font-black tracking-[-0.02em]">RHYTHM</span>
-                <span className="block text-[9px] font-black uppercase tracking-[0.22em]">Console</span>
+                <span className="block text-xs font-black tracking-[-0.02em]">RHYTHM</span>
+                <span className="block text-[8px] font-black uppercase tracking-[0.18em]">Console</span>
               </span>
             ) : null}
           </button>
           <button
-            className="rounded-xl border-[3px] border-black bg-[#00D4FF] px-2 py-1 text-xs font-black text-black shadow-[3px_3px_0px_#000]"
+            className="rounded-lg border-2 border-black bg-[#00D4FF] px-2 py-1 text-[10px] font-black text-black shadow-[2px_2px_0px_#000]"
             onClick={() => setIsExpanded((value) => !value)}
             aria-label="Toggle sidebar"
           >
@@ -84,45 +84,45 @@ export function ConsoleSidebar({ activeSection, isDarkMode, onOpenTab }: Console
         </div>
 
         {isExpanded ? (
-          <div className="mb-4 rounded-[24px] border-[3px] border-black bg-[#FF4D1D] p-3 text-black shadow-[4px_4px_0px_#000]">
-            <p className="text-[9px] font-black uppercase tracking-[0.18em]">Control Room</p>
-            <p className="mt-1 text-sm font-black leading-5">Operate, build, and govern from one console.</p>
+          <div className="mb-3 rounded-xl border-2 border-black bg-[#FF5A1F] p-2.5 text-black shadow-[3px_3px_0px_#000]">
+            <p className="text-[8px] font-black uppercase tracking-[0.16em]">Control Room</p>
+            <p className="mt-1 text-xs font-bold leading-4">Operate, build, and govern from one console.</p>
           </div>
         ) : null}
 
-        <nav className="space-y-2">
+        <nav className="space-y-1.5">
           {menu.map((item) => {
             const isActive = activeSection === item.section;
             const isOpen = openSections[item.section];
 
             return (
               <div key={item.id}>
-                <div className={`group flex items-center rounded-2xl border-[3px] border-black text-[11px] font-black uppercase tracking-wide shadow-[4px_4px_0px_#000] transition ${isActive ? `${item.color} text-black` : inactiveTheme}`}>
+                <div className={`group flex items-center rounded-xl border-2 border-black text-[10px] font-black uppercase tracking-wide shadow-[3px_3px_0px_#000] transition ${isActive ? `${item.color} text-black` : inactiveTheme}`}>
                   <button
-                    className={`flex min-w-0 flex-1 items-center gap-3 px-3 py-2.5 text-left ${!isExpanded ? 'justify-center' : ''}`}
+                    className={`flex min-w-0 flex-1 items-center gap-2 px-2.5 py-2 text-left ${!isExpanded ? 'justify-center' : ''}`}
                     onClick={() => onOpenTab({ id: item.id, label: item.label, section: item.section, pinned: item.id === 'overview' })}
                     title={item.label}
                   >
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border-[2px] border-black bg-white text-sm text-black">{item.icon}</span>
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 border-black bg-white text-xs text-black">{item.icon}</span>
                     {isExpanded ? <span className="truncate">{item.label}</span> : null}
                   </button>
                   {item.children && isExpanded ? (
-                    <button className="px-3 py-2 text-xs" onClick={() => toggleSection(item.section)}>
+                    <button className="px-2.5 py-2 text-[10px]" onClick={() => toggleSection(item.section)}>
                       {isOpen ? '−' : '+'}
                     </button>
                   ) : null}
                 </div>
 
                 {item.children && isOpen && isExpanded ? (
-                  <div className="ml-6 mt-2 space-y-1.5 border-l-[3px] border-black pl-3">
+                  <div className="ml-4 mt-1.5 space-y-1 border-l-2 border-black pl-2">
                     {item.children.map((child) => (
                       <button
                         key={child.id}
-                        className={`flex w-full items-center justify-between rounded-xl border-[2px] border-black px-3 py-2 text-left text-[11px] font-black uppercase tracking-wide shadow-[3px_3px_0px_#000] transition-transform hover:-translate-y-0.5 ${isDarkMode ? 'bg-[#25252C] text-[#FFF7E8]' : 'bg-[#FFFDF8] text-[#101014]'}`}
+                        className={`flex w-full items-center justify-between rounded-lg border-2 border-black px-2.5 py-1.5 text-left text-[10px] font-bold uppercase tracking-wide shadow-[2px_2px_0px_#000] transition-transform hover:-translate-y-0.5 ${isDarkMode ? 'bg-[#1D1E27] text-[#F8F5EE]' : 'bg-[#FFFDF8] text-[#121216]'}`}
                         onClick={() => onOpenTab({ id: child.id, label: child.label, section: item.section, badge: child.badge })}
                       >
                         <span className="truncate">{child.label}</span>
-                        {child.badge ? <span className="ml-2 rounded-lg border-2 border-black bg-[#FFE600] px-1.5 py-0.5 text-[9px] font-black text-black">{child.badge}</span> : null}
+                        {child.badge ? <span className="ml-2 rounded-md border-2 border-black bg-[#FFE600] px-1 py-0.5 text-[8px] font-black text-black">{child.badge}</span> : null}
                       </button>
                     ))}
                   </div>
