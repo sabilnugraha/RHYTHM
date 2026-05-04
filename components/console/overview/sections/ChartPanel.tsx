@@ -15,7 +15,7 @@ export function ChartPanel({ title, type, metric, detail }: ChartPanelProps) {
         </div>
         <div className="rounded-lg border border-black bg-[#FFFDF8] px-1.5 py-0.5 text-sm font-black">{metric}</div>
       </div>
-      <div className="h-20 rounded-lg border border-black bg-[#FFFDF8] p-2">
+      <div className="h-20 overflow-hidden rounded-lg border border-black bg-[#FFFDF8] p-2">
         {type === 'line' ? <LineChartMock /> : null}
         {type === 'donut' ? <DonutChartMock /> : null}
         {type === 'bar' ? <BarChartMock /> : null}
@@ -54,9 +54,9 @@ function DonutChartMock() {
 function BarChartMock() {
   const bars = ['h-6', 'h-9', 'h-10', 'h-5', 'h-12', 'h-8', 'h-10'];
   return (
-    <div className="flex h-full items-end gap-1.5">
+    <div className="flex h-full items-end gap-1.5 overflow-hidden">
       {bars.map((height, index) => (
-        <div key={index} className={`${height} flex-1 rounded-t-md border border-black bg-[#00C2FF]`} />
+        <div key={index} className={`${height} min-w-0 flex-1 rounded-t-md border border-black bg-[#00C2FF]`} />
       ))}
     </div>
   );
@@ -70,12 +70,12 @@ function AgentBarsMock() {
   ];
 
   return (
-    <div className="space-y-1.5">
+    <div className="flex h-full flex-col justify-center gap-1 overflow-hidden">
       {rows.map(([label, width]) => (
-        <div key={label}>
-          <div className="mb-0.5 text-[8px] font-black uppercase tracking-wide">{label}</div>
-          <div className="h-2.5 overflow-hidden rounded-full border border-black bg-[#F6F1E8]">
-            <div className={`${width} h-full rounded-full bg-[#FF5A1F]`} />
+        <div key={label} className="min-h-0">
+          <div className="mb-0.5 truncate text-[7px] font-black uppercase leading-3 tracking-wide">{label}</div>
+          <div className="h-2 overflow-hidden rounded-full border border-black bg-[#F6F1E8]">
+            <div className={`${width} h-full max-w-full rounded-full bg-[#FF5A1F]`} />
           </div>
         </div>
       ))}
