@@ -18,3 +18,51 @@ body {
 button {
   font: inherit;
 }
+
+.console-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #9A9A9A transparent;
+}
+
+.console-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.console-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.console-scrollbar::-webkit-scrollbar-thumb {
+  background: #9A9A9A;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+
+.console-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #7F7F7F;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.console-scrollbar-dark {
+  scrollbar-color: #4B5565 transparent;
+}
+
+.console-scrollbar-dark::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.console-scrollbar-dark::-webkit-scrollbar-thumb {
+  background: #4B5565;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+
+.console-scrollbar-dark::-webkit-scrollbar-thumb:hover {
+  background: #64748B;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
