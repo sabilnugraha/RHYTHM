@@ -112,7 +112,7 @@ export function ConsoleSidebar({ activeSection, isDarkMode, onToggleDarkMode, on
           </button>
         </div>
 
-        <form onSubmit={submitSearch} className="mb-2">
+        <form onSubmit={submitSearch} className="mb-2 shrink-0">
           {isExpanded ? (
             <label className={`flex h-7 items-center gap-1.5 rounded-lg border border-black/10 px-2 ${controlTheme}`}>
               <span className={`text-[10px] ${subtleText}`}>⌕</span>
@@ -136,7 +136,7 @@ export function ConsoleSidebar({ activeSection, isDarkMode, onToggleDarkMode, on
         </form>
 
         {isExpanded ? (
-          <div className={`mb-2 rounded-lg border border-black/10 px-2 py-1.5 ${controlTheme}`}>
+          <div className={`mb-2 shrink-0 rounded-lg border border-black/10 px-2 py-1.5 ${controlTheme}`}>
             <p className={`text-[7px] font-black uppercase tracking-[0.14em] ${subtleText}`}>Control Room</p>
             <p className="mt-0.5 text-[10px] font-semibold leading-3.5">Operate, build, and govern.</p>
           </div>
@@ -185,8 +185,8 @@ export function ConsoleSidebar({ activeSection, isDarkMode, onToggleDarkMode, on
           })}
         </nav>
 
-        <div className={`mt-2 border-t pt-2 ${isDarkMode ? 'border-white/10' : 'border-black/10'}`}>
-          <div className={`flex items-center gap-2 rounded-lg px-1.5 py-1.5 ${controlTheme}`}>
+        <div className={`shrink-0 border-t pt-2 ${isDarkMode ? 'border-white/10' : 'border-black/10'}`}>
+          <div className={`flex ${isExpanded ? 'items-center justify-between' : 'flex-col items-center'} gap-2 rounded-lg px-1.5 py-1.5 ${controlTheme}`}>
             <button
               type="button"
               aria-label="Toggle dark mode"
@@ -205,17 +205,19 @@ export function ConsoleSidebar({ activeSection, isDarkMode, onToggleDarkMode, on
               </span>
             </button>
 
-            <button
-              type="button"
-              aria-label="User profile"
-              className={`grid h-6 w-6 shrink-0 place-items-center overflow-hidden rounded-full text-[8px] font-black ${
-                isDarkMode ? 'bg-[#1E2633] text-[#F7F2E8]' : 'bg-[#F0E8D8] text-[#111216]'
-              }`}
-            >
-              SB
-            </button>
+            <div className="flex min-w-0 items-center gap-1.5">
+              <button
+                type="button"
+                aria-label="User profile"
+                className={`grid h-6 w-6 shrink-0 place-items-center overflow-hidden rounded-full text-[8px] font-black ${
+                  isDarkMode ? 'bg-[#1E2633] text-[#F7F2E8]' : 'bg-[#F0E8D8] text-[#111216]'
+                }`}
+              >
+                SB
+              </button>
 
-            {isExpanded ? <span className={`min-w-0 truncate text-[9px] font-semibold ${subtleText}`}>Sabil</span> : null}
+              {isExpanded ? <span className={`min-w-0 truncate text-[9px] font-semibold ${subtleText}`}>Sabil</span> : null}
+            </div>
           </div>
         </div>
       </div>
