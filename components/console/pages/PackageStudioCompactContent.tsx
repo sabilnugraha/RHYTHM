@@ -38,6 +38,61 @@ function Pill({ children, className = '' }: { children: React.ReactNode; classNa
   return <span className={`rounded-full border-2 border-black px-1.5 py-0.5 text-[8px] font-black uppercase ${className}`}>{children}</span>;
 }
 
+function WorkspaceTabs({
+  tabs,
+  activeId,
+  onSelect,
+  onClose,
+  onCreate,
+}: {
+  tabs: WorkspaceTab[];
+  activeId: string;
+  onSelect: (id: string) => void;
+  onClose: (id: string) => void;
+  onCreate: () => void;
+}) {
+  return (
+    <div className="mt-2 flex items-center gap-1 overflow-x-auto rounded-lg border border-black/20 bg-[#F6F1E8]/70 px-1 py-1">
+      {tabs.map((item) => {
+        const isActive = activeId === item.id;
+        return (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => onSelect(item.id)}
+            className={`flex h-6 max-w-[132px] shrink-0 items-center gap-1 rounded-md px-2 text-[9px] font-black uppercase leading-none transition-colors ${
+              isActive ? 'bg-[#111216] text-white shadow-[1px_1px_0px_#000]' : 'text-neutral-600 hover:bg-[#FFFDF8] hover:text-[#111216]'
+            }`}
+          >
+            <span className="truncate">{item.title}</span>
+            {item.dirty ? <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#FFE600]" /> : null}
+            {!item.pinned ? (
+              <span
+                role="button"
+                tabIndex={0}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onClose(item.id);
+                }}
+                className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-[#FF4E1F] pb-px text-[7px] leading-none text-white"
+              >
+                ×
+              </span>
+            ) : null}
+          </button>
+        );
+      })}
+      <button
+        type="button"
+        onClick={onCreate}
+        className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-black bg-[#9BFF00] pb-px text-[10px] font-black leading-none shadow-[1px_1px_0px_#000]"
+      >
+        +
+      </button>
+    </div>
+  );
+}
+
 export function PackageStudioCompactContent({ tab }: Props) {
   const [tabs, setTabs] = useState<WorkspaceTab[]>([{ id: 'all-packages', title: 'All Packages', type: 'library', pinned: true }]);
   const [activeId, setActiveId] = useState('all-packages');
@@ -87,16 +142,7 @@ export function PackageStudioCompactContent({ tab }: Props) {
             <button type="button" onClick={createPackage} className="rounded-lg border-2 border-black bg-[#FFE600] px-2 py-1 text-[10px] font-black uppercase shadow-[2px_2px_0px_#000]">+ Create Package</button>
           </div>
         </div>
-        <div className="mt-1.5 flex items-center overflow-x-auto border-b-2 border-black pb-0">
-          {tabs.map((item) => (
-            <button key={item.id} type="button" onClick={() => setActiveId(item.id)} className={`relative -mb-0.5 flex h-6 max-w-[132px] shrink-0 items-center gap-1 border-b-2 px-2 text-[9px] font-black uppercase leading-none transition-colors ${activeId === item.id ? 'border-[#111216] text-[#111216]' : 'border-transparent text-neutral-500 hover:text-[#111216]'}`}>
-              <span className="truncate">{item.title}</span>
-              {item.dirty ? <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#FFE600]" /> : null}
-              {!item.pinned ? <span role="button" tabIndex={0} onClick={(event) => { event.stopPropagation(); closeTab(item.id); }} className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-[#FF4E1F] pb-px text-[7px] leading-none text-white">×</span> : null}
-            </button>
-          ))}
-          <button type="button" onClick={createPackage} className="mb-0.5 ml-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-black bg-[#9BFF00] pb-px text-[10px] font-black leading-none shadow-[1px_1px_0px_#000]">+</button>
-        </div>
+        <WorkspaceTabs tabs={tabs} activeId={activeId} onSelect={setActiveId} onClose={closeTab} onCreate={createPackage} />
       </header>
 
       <div className="px-2.5 pb-2.5">
