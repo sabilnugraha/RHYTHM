@@ -75,7 +75,7 @@ export function PackageStudioCompactContent({ tab }: Props) {
   }
 
   return (
-    <div className="-m-2.5 min-h-[calc(100%+20px)] bg-[#FFFDF8] text-[#111216]">
+    <div className="min-h-full bg-[#FFFDF8] text-[#111216]">
       <header className="sticky top-0 z-30 mb-2 rounded-b-xl border-b-2 border-black bg-[#FFFDF8]/95 px-3 py-1.5 backdrop-blur">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h1 className="text-xl font-black leading-none tracking-[-0.05em]">Package Studio</h1>
