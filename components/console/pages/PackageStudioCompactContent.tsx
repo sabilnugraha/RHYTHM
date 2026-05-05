@@ -87,15 +87,15 @@ export function PackageStudioCompactContent({ tab }: Props) {
             <button type="button" onClick={createPackage} className="rounded-lg border-2 border-black bg-[#FFE600] px-2 py-1 text-[10px] font-black uppercase shadow-[2px_2px_0px_#000]">+ Create Package</button>
           </div>
         </div>
-        <div className="mt-1.5 flex items-end overflow-x-auto pb-0.5">
-          {tabs.map((item, index) => (
-            <button key={item.id} type="button" onClick={() => setActiveId(item.id)} className={`flex h-5 max-w-[112px] shrink-0 items-center gap-0.5 border-2 border-black px-1.5 text-[8px] font-black uppercase leading-none ${index > 0 ? '-ml-0.5' : ''} ${activeId === item.id ? 'z-10 bg-[#111216] text-white' : 'bg-[#FFFDF8] text-[#111216]'}`}>
+        <div className="mt-1.5 flex items-center overflow-x-auto border-b-2 border-black pb-0">
+          {tabs.map((item) => (
+            <button key={item.id} type="button" onClick={() => setActiveId(item.id)} className={`relative -mb-0.5 flex h-6 max-w-[132px] shrink-0 items-center gap-1 border-b-2 px-2 text-[9px] font-black uppercase leading-none transition-colors ${activeId === item.id ? 'border-[#111216] text-[#111216]' : 'border-transparent text-neutral-500 hover:text-[#111216]'}`}>
               <span className="truncate">{item.title}</span>
               {item.dirty ? <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#FFE600]" /> : null}
-              {!item.pinned ? <span role="button" tabIndex={0} onClick={(event) => { event.stopPropagation(); closeTab(item.id); }} className="grid h-3 w-3 shrink-0 place-items-center rounded-full bg-[#FF4E1F] text-[7px] leading-none text-white">×</span> : null}
+              {!item.pinned ? <span role="button" tabIndex={0} onClick={(event) => { event.stopPropagation(); closeTab(item.id); }} className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-[#FF4E1F] pb-px text-[7px] leading-none text-white">×</span> : null}
             </button>
           ))}
-          <button type="button" onClick={createPackage} className="ml-1 grid h-5 w-5 shrink-0 place-items-center rounded-full border-2 border-black bg-[#9BFF00] text-[9px] font-black shadow-[1px_1px_0px_#000]">+</button>
+          <button type="button" onClick={createPackage} className="mb-0.5 ml-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-black bg-[#9BFF00] pb-px text-[10px] font-black leading-none shadow-[1px_1px_0px_#000]">+</button>
         </div>
       </header>
 
