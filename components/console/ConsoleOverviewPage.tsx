@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { ConsoleShell } from './layout/ConsoleShell';
 import { OverviewContent } from './overview/OverviewContent';
-import { PackageStudioContent } from './pages/PackageStudioContent';
+import { PackageStudioCompactContent } from './pages/PackageStudioCompactContent';
 import { PlaceholderContent } from './pages/PlaceholderContent';
 
 export type ConsoleTab = {
@@ -53,7 +53,7 @@ export function ConsoleOverviewPage() {
     }
 
     if (tab.section === 'Package Studio') {
-      return <PackageStudioContent tab={tab} />;
+      return <PackageStudioCompactContent tab={tab} />;
     }
 
     return <PlaceholderContent tab={tab} />;
