@@ -76,26 +76,26 @@ export function PackageStudioCompactContent({ tab }: Props) {
 
   return (
     <div className="-m-2.5 min-h-[calc(100%+20px)] bg-[#FFFDF8] text-[#111216]">
-      <header className="sticky top-0 z-30 mb-2 rounded-b-xl border-x-2 border-b-2 border-black bg-[#FFFDF8]/95 px-3 py-2 backdrop-blur">
+      <header className="sticky top-0 z-30 mb-2 rounded-b-xl border-b-2 border-black bg-[#FFFDF8]/95 px-3 py-1.5 backdrop-blur">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h1 className="text-2xl font-black leading-none tracking-[-0.05em]">Package Studio</h1>
+          <h1 className="text-xl font-black leading-none tracking-[-0.05em]">Package Studio</h1>
           <div className="flex flex-wrap items-center justify-end gap-1.5">
-            <label className="flex h-8 min-w-[210px] items-center gap-2 rounded-lg border-2 border-black bg-[#FFFDF8] px-2 shadow-[2px_2px_0px_#000]">
-              <span className="text-xs font-black">⌕</span>
-              <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={searchPlaceholder} className="min-w-0 flex-1 bg-transparent text-[11px] font-bold outline-none placeholder:text-neutral-500" />
+            <label className="flex h-7 min-w-[205px] items-center gap-2 rounded-lg border-2 border-black bg-[#FFFDF8] px-2 shadow-[2px_2px_0px_#000]">
+              <span className="text-[10px] font-black">⌕</span>
+              <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={searchPlaceholder} className="min-w-0 flex-1 bg-transparent text-[10px] font-bold outline-none placeholder:text-neutral-500" />
             </label>
-            <button type="button" onClick={createPackage} className="rounded-lg border-2 border-black bg-[#FFE600] px-2.5 py-1.5 text-[11px] font-black uppercase shadow-[2px_2px_0px_#000]">+ Create Package</button>
+            <button type="button" onClick={createPackage} className="rounded-lg border-2 border-black bg-[#FFE600] px-2 py-1 text-[10px] font-black uppercase shadow-[2px_2px_0px_#000]">+ Create Package</button>
           </div>
         </div>
-        <div className="mt-2 flex items-end gap-0 overflow-x-auto pb-0.5">
-          {tabs.map((item) => (
-            <button key={item.id} type="button" onClick={() => setActiveId(item.id)} className={`flex max-w-[145px] shrink-0 items-center gap-1 border-y-2 border-l-2 border-black px-2 py-0.5 text-[10px] font-black uppercase first:rounded-l-md last:rounded-r-md last:border-r-2 ${activeId === item.id ? 'bg-[#111216] text-white' : 'bg-[#FFFDF8] text-[#111216]'}`}>
+        <div className="mt-1.5 flex items-end overflow-x-auto pb-0.5">
+          {tabs.map((item, index) => (
+            <button key={item.id} type="button" onClick={() => setActiveId(item.id)} className={`flex h-5 max-w-[112px] shrink-0 items-center gap-0.5 border-2 border-black px-1.5 text-[8px] font-black uppercase leading-none ${index > 0 ? '-ml-0.5' : ''} ${activeId === item.id ? 'z-10 bg-[#111216] text-white' : 'bg-[#FFFDF8] text-[#111216]'}`}>
               <span className="truncate">{item.title}</span>
               {item.dirty ? <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#FFE600]" /> : null}
-              {!item.pinned ? <span role="button" tabIndex={0} onClick={(event) => { event.stopPropagation(); closeTab(item.id); }} className="grid h-3.5 w-3.5 shrink-0 place-items-center rounded-full bg-[#FF4E1F] text-[8px] leading-none text-white">×</span> : null}
+              {!item.pinned ? <span role="button" tabIndex={0} onClick={(event) => { event.stopPropagation(); closeTab(item.id); }} className="grid h-3 w-3 shrink-0 place-items-center rounded-full bg-[#FF4E1F] text-[7px] leading-none text-white">×</span> : null}
             </button>
           ))}
-          <button type="button" onClick={createPackage} className="ml-1 grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-black bg-[#9BFF00] text-[10px] font-black shadow-[1px_1px_0px_#000]">+</button>
+          <button type="button" onClick={createPackage} className="ml-1 grid h-5 w-5 shrink-0 place-items-center rounded-full border-2 border-black bg-[#9BFF00] text-[9px] font-black shadow-[1px_1px_0px_#000]">+</button>
         </div>
       </header>
 
