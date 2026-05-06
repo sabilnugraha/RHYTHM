@@ -90,39 +90,3 @@ button {
 .console-scrollbar-dark:focus-within::-webkit-scrollbar-thumb:hover {
   background: #64748B;
 }
-
-/* Package Studio inner workspace tabs need to visually match the compact package-card title scale. */
-button.flex.h-4.shrink-0.items-center.gap-0\.5.rounded.px-1.text-\[7px\].leading-\[10px\] {
-  height: 13px !important;
-  gap: 2px !important;
-  padding-left: 3px !important;
-  padding-right: 3px !important;
-  font-size: 6px !important;
-  line-height: 8px !important;
-  font-weight: 500 !important;
-}
-
-button.flex.h-4.shrink-0.items-center.gap-0\.5.rounded.px-1.text-\[7px\].leading-\[10px\] > span.whitespace-nowrap {
-  font-size: 6px !important;
-  line-height: 8px !important;
-}
-
-button.flex.h-4.shrink-0.items-center.gap-0\.5.rounded.px-1.text-\[7px\].leading-\[10px\] span[role='button'] {
-  width: 8px !important;
-  height: 8px !important;
-  font-size: 5px !important;
-  line-height: 1 !important;
-}
-
-button.flex.h-4.w-4.shrink-0.items-center.justify-center.rounded.border.border-black.bg-\[\#9BFF00\] {
-  width: 13px !important;
-  height: 13px !important;
-  font-size: 6px !important;
-  line-height: 1 !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-button.flex.h-4.w-4.shrink-0.items-center.justify-center.rounded.border.border-black.bg-\[\#9BFF00\] > span {
-  transform: translateY(-0.5px) !important;
-}
