@@ -62,16 +62,16 @@ function WorkspaceTabs({ tabs, activeId, onSelect, onClose, onCreate }: { tabs: 
       {tabs.map((item) => {
         const isActive = activeId === item.id;
         return (
-          <button key={item.id} type="button" onClick={() => onSelect(item.id)} className={`flex h-4 shrink-0 items-center gap-1 rounded px-1 text-[8px] leading-3 tracking-normal transition-colors ${isActive ? 'bg-[#111216] font-semibold text-white' : 'font-medium text-neutral-600 hover:bg-[#FFFDF8] hover:text-[#111216]'}`}>
+          <button key={item.id} type="button" onClick={() => onSelect(item.id)} className={`flex h-4 shrink-0 items-center gap-0.5 rounded px-1 text-[7px] leading-[10px] tracking-normal transition-colors ${isActive ? 'bg-[#111216] font-medium text-white' : 'font-medium text-neutral-600 hover:bg-[#FFFDF8] hover:text-[#111216]'}`}>
             <span className="whitespace-nowrap">{item.title}</span>
             {item.dirty ? <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#FFE600]" /> : null}
             {!item.pinned ? (
-              <span role="button" tabIndex={0} onClick={(event) => { event.stopPropagation(); onClose(item.id); }} className="grid h-3 w-3 shrink-0 place-items-center rounded-sm bg-[#E5484D] text-[7px] leading-none text-white">×</span>
+              <span role="button" tabIndex={0} onClick={(event) => { event.stopPropagation(); onClose(item.id); }} className="grid h-2.5 w-2.5 shrink-0 place-items-center rounded-sm bg-[#E5484D] text-[6px] leading-none text-white">×</span>
             ) : null}
           </button>
         );
       })}
-      <button type="button" onClick={onCreate} className="grid h-4 w-4 shrink-0 place-items-center rounded border border-black bg-[#9BFF00] text-[8px] font-black leading-none" aria-label="Create package workspace">+</button>
+      <button type="button" onClick={onCreate} className="flex h-4 w-4 shrink-0 items-center justify-center rounded border border-black bg-[#9BFF00] p-0 text-[7px] font-black leading-none" aria-label="Create package workspace"><span className="-translate-y-px">+</span></button>
     </div>
   );
 }
