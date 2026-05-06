@@ -23,31 +23,73 @@ const components = [
   ['AI Glossary', 'Metadata', 'AI Ready', 'Agent Context'],
 ];
 
-const statusColor = (status: string) => status === 'Published' ? 'bg-[#9BFF00]' : status === 'Testing' ? 'bg-[#00B9F2]' : 'bg-[#FFE600]';
-const layerColor = (layer: string) => layer.includes('Operational') ? 'bg-[#9BFF00]' : layer.includes('Control') ? 'bg-[#FF4E1F] text-white' : layer.includes('AI') ? 'bg-[#FFE600]' : 'bg-[#00B9F2]';
+function statusColor(status: string) {
+  if (status === 'Published') return 'bg-[#9BFF00]';
+  if (status === 'Testing') return 'bg-[#00B9F2]';
+  return 'bg-[#FFE600]';
+}
+
+function layerColor(layer: string) {
+  if (layer.includes('Operational')) return 'bg-[#9BFF00]';
+  if (layer.includes('Control')) return 'bg-[#FF4E1F] text-white';
+  if (layer.includes('AI')) return 'bg-[#FFE600]';
+  return 'bg-[#00B9F2]';
+}
 
 function Pill({ children, className = '' }: { children: ReactNode; className?: string }) {
   return <span className={`rounded border border-black px-1 py-0.5 text-[8px] font-black leading-none ${className}`}>{children}</span>;
 }
 
 function Panel({ title, badge, children }: { title: string; badge?: string; children: ReactNode }) {
-  return <section className="rounded-lg border-2 border-black bg-[#F6F1E8] p-1.5 shadow-[1.5px_1.5px_0px_#000]"><div className="mb-1.5 flex items-center justify-between gap-1.5"><p className="text-[9px] font-black uppercase">{title}</p>{badge ? <Pill className="bg-[#FFE600]">{badge}</Pill> : null}</div>{children}</section>;
+  return (
+    <section className="rounded-lg border-2 border-black bg-[#F6F1E8] p-1.5 shadow-[1.5px_1.5px_0px_#000]">
+      <div className="mb-1.5 flex items-center justify-between gap-1.5">
+        <p className="text-[9px] font-black uppercase">{title}</p>
+        {badge ? <Pill className={statusColor(badge)}>{badge}</Pill> : null}
+      </div>
+      {children}
+    </section>
+  );
 }
 
 function WorkspaceTabs({ tabs, activeId, onSelect, onClose, onCreate }: { tabs: WorkspaceTab[]; activeId: string; onSelect: (id: string) => void; onClose: (id: string) => void; onCreate: () => void }) {
   return (
-    <div className="mt-1 flex items-center gap-1 overflow-x-auto rounded-md border border-black/20 bg-[#F6F1E8]/70 px-1 py-0.5">
+    <div className="mt-1 flex items-center gap-1.5 overflow-x-auto rounded-md border border-black/20 bg-[#F6F1E8]/70 px-1.5 py-1">
       {tabs.map((item) => {
         const isActive = activeId === item.id;
         return (
-          <button key={item.id} type="button" onClick={() => onSelect(item.id)} className={`flex h-[15px] shrink-0 items-center gap-1 rounded px-1.5 text-[7px] leading-[9px] tracking-normal transition-colors ${isActive ? 'bg-[#111216] font-medium text-white' : 'font-medium text-neutral-600 hover:bg-[#FFFDF8] hover:text-[#111216]'}`}>
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => onSelect(item.id)}
+            className={`flex h-[17px] shrink-0 items-center gap-1 rounded px-2 text-[7px] leading-[9px] tracking-normal transition-colors ${isActive ? 'bg-[#111216] font-medium text-white' : 'font-medium text-neutral-600 hover:bg-[#FFFDF8] hover:text-[#111216]'}`}
+          >
             <span className="whitespace-nowrap">{item.title}</span>
             {item.dirty ? <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#FFE600]" /> : null}
-            {!item.pinned ? <span role="button" tabIndex={0} onClick={(e) => { e.stopPropagation(); onClose(item.id); }} className="grid h-[9px] w-[9px] shrink-0 place-items-center rounded-sm bg-[#E5484D] text-[6px] leading-none text-white">×</span> : null}
+            {!item.pinned ? (
+              <span
+                role="button"
+                tabIndex={0}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onClose(item.id);
+                }}
+                className="ml-0.5 grid h-[9px] w-[9px] shrink-0 place-items-center rounded-sm bg-[#E5484D] text-[6px] leading-none text-white"
+              >
+                ×
+              </span>
+            ) : null}
           </button>
         );
       })}
-      <button type="button" onClick={onCreate} className="flex h-[15px] w-[15px] shrink-0 items-center justify-center rounded border border-black bg-[#9BFF00] p-0 text-[7px] font-black leading-none" aria-label="Create package workspace"><span className="-translate-y-px">+</span></button>
+      <button
+        type="button"
+        onClick={onCreate}
+        className="flex h-[17px] w-[17px] shrink-0 items-center justify-center rounded border border-black bg-[#9BFF00] p-0 text-[7px] font-black leading-none"
+        aria-label="Create package workspace"
+      >
+        <span className="-translate-y-px">+</span>
+      </button>
     </div>
   );
 }
@@ -92,18 +134,55 @@ export function PackageStudioCompactContent({ tab }: Props) {
     <div className="min-h-full bg-[#FFFDF8] text-[#111216]">
       <header className="sticky top-0 z-30 mb-1.5 rounded-b-lg border-b border-black bg-[#FFFDF8]/95 px-2 py-1 backdrop-blur">
         <div className="flex flex-wrap items-center justify-between gap-1.5">
-          <div><p className="text-[8px] font-black uppercase tracking-[0.12em] text-neutral-500">{tab.section}</p><h1 className="text-[9px] font-black leading-3 tracking-normal">Package Studio</h1></div>
-          <div className="flex flex-wrap items-center justify-end gap-1"><label className="flex h-6 min-w-[170px] items-center gap-1.5 rounded-md border border-black bg-[#FFFDF8] px-1.5 shadow-[1px_1px_0px_#000]"><span className="text-[8px] font-black">⌕</span><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={placeholder} className="min-w-0 flex-1 bg-transparent text-[8px] font-semibold outline-none placeholder:text-neutral-500" /></label><button type="button" onClick={createPackage} className="h-6 rounded-md border border-black bg-[#FFE600] px-1.5 text-[8px] font-black leading-none shadow-[1px_1px_0px_#000]">+ Package</button></div>
+          <div>
+            <p className="text-[8px] font-black uppercase tracking-[0.12em] text-neutral-500">{tab.section}</p>
+            <h1 className="text-[9px] font-black leading-3 tracking-normal">Package Studio</h1>
+          </div>
+          <div className="flex flex-wrap items-center justify-end gap-1">
+            <label className="flex h-6 min-w-[170px] items-center gap-1.5 rounded-md border border-black bg-[#FFFDF8] px-1.5 shadow-[1px_1px_0px_#000]">
+              <span className="text-[8px] font-black">⌕</span>
+              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={placeholder} className="min-w-0 flex-1 bg-transparent text-[8px] font-semibold outline-none placeholder:text-neutral-500" />
+            </label>
+            <button type="button" onClick={createPackage} className="h-6 rounded-md border border-black bg-[#FFE600] px-1.5 text-[8px] font-black leading-none shadow-[1px_1px_0px_#000]">+ Package</button>
+          </div>
         </div>
         <WorkspaceTabs tabs={tabs} activeId={activeId} onSelect={setActiveId} onClose={closeTab} onCreate={createPackage} />
       </header>
-      <div className="px-1.5 pb-1.5">{active.type === 'library' ? <Library packages={filtered} onOpen={openPackage} onCreate={createPackage} /> : active.type === 'new' ? <NewPackage /> : <Builder pkg={activePackage} />}</div>
+      <div className="px-1.5 pb-1.5">
+        {active.type === 'library' ? <Library packages={filtered} onOpen={openPackage} onCreate={createPackage} /> : active.type === 'new' ? <NewPackage /> : <Builder pkg={activePackage} />}
+      </div>
     </div>
   );
 }
 
 function Library({ packages: packageList, onOpen, onCreate }: { packages: PackageItem[]; onOpen: (id: string) => void; onCreate: () => void }) {
-  return <section className="grid gap-1.5 lg:grid-cols-[minmax(0,1fr)_180px]"><main className="space-y-1.5"><section className="grid gap-1.5 md:grid-cols-3"><IntroCard title="Create Package" label="Blank" text="New business package." color="bg-[#FFE600]" onClick={onCreate} /><IntroCard title="Blueprint" label="Template" text="HR, approval, inventory." color="bg-[#9BFF00]" /><IntroCard title="Multitask" label="Workspace" text="Edit side by side." color="bg-[#00B9F2]" /></section><Panel title="All Packages"><p className="-mt-1 mb-1.5 text-[8px] font-medium text-neutral-600">Open as tab.</p><div className="grid gap-1.5 md:grid-cols-2 xl:grid-cols-3">{packageList.map((pkg) => <PackageCard key={pkg.id} pkg={pkg} onOpen={() => onOpen(pkg.id)} />)}</div></Panel></main><aside className="rounded-lg border-2 border-black bg-[#F6F1E8] p-1.5 shadow-[1.5px_1.5px_0px_#000]"><p className="text-[8px] font-black uppercase tracking-[0.12em] text-neutral-600">Guide</p><h3 className="mt-0.5 text-[9px] font-black leading-3 tracking-normal">Package Workspaces</h3><p className="text-[8px] font-medium leading-3 text-neutral-700">Inner tabs keep builders open.</p><div className="mt-1.5 space-y-1"><Info title="Library" text="Search & open." /><Info title="Workspace" text="Build per tab." /><Info title="Rule" text="Main tab = area." dark /></div></aside></section>;
+  return (
+    <section className="grid gap-1.5 lg:grid-cols-[minmax(0,1fr)_180px]">
+      <main className="space-y-1.5">
+        <section className="grid gap-1.5 md:grid-cols-3">
+          <IntroCard title="Create Package" label="Blank" text="New business package." color="bg-[#FFE600]" onClick={onCreate} />
+          <IntroCard title="Blueprint" label="Template" text="HR, approval, inventory." color="bg-[#9BFF00]" />
+          <IntroCard title="Multitask" label="Workspace" text="Edit side by side." color="bg-[#00B9F2]" />
+        </section>
+        <Panel title="All Packages">
+          <p className="-mt-1 mb-1.5 text-[8px] font-medium text-neutral-600">Open as tab.</p>
+          <div className="grid gap-1.5 md:grid-cols-2 xl:grid-cols-3">
+            {packageList.map((pkg) => <PackageCard key={pkg.id} pkg={pkg} onOpen={() => onOpen(pkg.id)} />)}
+          </div>
+        </Panel>
+      </main>
+      <aside className="rounded-lg border-2 border-black bg-[#F6F1E8] p-1.5 shadow-[1.5px_1.5px_0px_#000]">
+        <p className="text-[8px] font-black uppercase tracking-[0.12em] text-neutral-600">Guide</p>
+        <h3 className="mt-0.5 text-[9px] font-black leading-3 tracking-normal">Package Workspaces</h3>
+        <p className="text-[8px] font-medium leading-3 text-neutral-700">Inner tabs keep builders open.</p>
+        <div className="mt-1.5 space-y-1">
+          <Info title="Library" text="Search & open." />
+          <Info title="Workspace" text="Build per tab." />
+          <Info title="Rule" text="Main tab = area." dark />
+        </div>
+      </aside>
+    </section>
+  );
 }
 
 function IntroCard({ title, label, text, color, onClick }: { title: string; label: string; text: string; color: string; onClick?: () => void }) {
