@@ -19,14 +19,14 @@ export function ConsoleTabBar({ tabs, activeTabId, isDarkMode, onSelectTab, onCl
         return (
           <button
             key={tab.id}
-            className={`-ml-px flex h-6 shrink-0 items-center gap-1.5 rounded-t-md border border-b-0 border-black/45 px-2.5 text-[8px] font-semibold tracking-normal transition ${
+            className={`-ml-px flex h-6 shrink-0 items-center gap-1.5 rounded-t-md border border-b-0 border-black/45 px-2.5 text-[9px] font-semibold tracking-normal transition ${
               isActive ? activeTheme : inactiveTheme
             }`}
             onClick={() => onSelectTab(tab.id)}
           >
             {tab.pinned ? <span className="text-[6px] leading-none">●</span> : null}
             <span>{tab.label}</span>
-            {tab.badge ? <span className="rounded bg-[#FFE600] px-1 text-[7px] text-black">{tab.badge}</span> : null}
+            {tab.badge ? <span className="rounded bg-[#FFE600] px-1 text-[8px] text-black">{tab.badge}</span> : null}
             {!tab.pinned ? (
               <span
                 className="ml-0.5 grid h-3.5 w-3.5 place-items-center rounded-sm bg-[#E5484D] text-[8px] font-bold leading-none text-white hover:bg-[#D63C42]"
