@@ -6,6 +6,7 @@ import { ConsoleShell } from './layout/ConsoleShell';
 import { OverviewContent } from './overview/OverviewContent';
 import { PackageStudioCompactContent } from './pages/PackageStudioCompactContent';
 import { PlaceholderContent } from './pages/PlaceholderContent';
+import { TeamOperationsContent } from './pages/TeamOperationsContent';
 
 export type ConsoleTab = {
   id: string;
@@ -54,6 +55,10 @@ export function ConsoleOverviewPage() {
 
     if (tab.section === 'Package Studio') {
       return <PackageStudioCompactContent tab={tab} />;
+    }
+
+    if (tab.section === 'Team Operations') {
+      return <TeamOperationsContent tab={tab} />;
     }
 
     return <PlaceholderContent tab={tab} />;
