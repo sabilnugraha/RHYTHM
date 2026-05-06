@@ -62,11 +62,11 @@ function WorkspaceTabs({ tabs, activeId, onSelect, onClose, onCreate }: { tabs: 
       {tabs.map((item) => {
         const isActive = activeId === item.id;
         return (
-          <button key={item.id} type="button" onClick={() => onSelect(item.id)} className={`flex h-5 shrink-0 items-center gap-1 rounded px-1.5 text-[7px] font-semibold leading-none transition-colors ${isActive ? 'bg-[#111216] text-white' : 'text-neutral-600 hover:bg-[#FFFDF8] hover:text-[#111216]'}`}>
+          <button key={item.id} type="button" onClick={() => onSelect(item.id)} className={`flex h-5 shrink-0 items-center gap-1 rounded px-1.5 text-[9px] font-semibold leading-none transition-colors ${isActive ? 'bg-[#111216] text-white' : 'text-neutral-600 hover:bg-[#FFFDF8] hover:text-[#111216]'}`}>
             <span className="whitespace-nowrap">{item.title}</span>
             {item.dirty ? <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#FFE600]" /> : null}
             {!item.pinned ? (
-              <span role="button" tabIndex={0} onClick={(event) => { event.stopPropagation(); onClose(item.id); }} className="grid h-3 w-3 shrink-0 place-items-center rounded-sm bg-[#E5484D] text-[7px] leading-none text-white">×</span>
+              <span role="button" tabIndex={0} onClick={(event) => { event.stopPropagation(); onClose(item.id); }} className="grid h-3.5 w-3.5 shrink-0 place-items-center rounded-sm bg-[#E5484D] text-[8px] leading-none text-white">×</span>
             ) : null}
           </button>
         );
