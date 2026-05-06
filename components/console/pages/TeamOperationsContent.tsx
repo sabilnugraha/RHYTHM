@@ -61,6 +61,32 @@ function SmallButton({ children, dark }: { children: React.ReactNode; dark?: boo
   return <button className={`h-6 rounded-md border border-black px-2 text-[8px] font-black ${dark ? 'bg-[#111216] text-white' : 'bg-[#FFE600] text-black'}`}>{children}</button>;
 }
 
+function CollapseIcon({ collapsed }: { collapsed: boolean }) {
+  return (
+    <svg className="h-3 w-3" viewBox="0 0 12 12" aria-hidden="true">
+      <path d={collapsed ? 'M4.5 2.5 8 6l-3.5 3.5' : 'M7.5 2.5 4 6l3.5 3.5'} fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" />
+    </svg>
+  );
+}
+
+function TeamMenuIcon({ id }: { id: SectionId }) {
+  const common = 'fill-none stroke-current';
+  const icons: Record<SectionId, React.ReactNode> = {
+    overview: <><rect x="3" y="3" width="6" height="6" rx="1" className={common} strokeWidth="1.7" /><path d="M3 5.2h6M5.2 3v6" className={common} strokeWidth="1.7" strokeLinecap="round" /></>,
+    'my-dashboard': <><path d="M2.5 8.5 5 6l1.5 1.5 3-4" className={common} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /><path d="M2.5 9.5h7" className={common} strokeWidth="1.7" strokeLinecap="round" /></>,
+    people: <><circle cx="4.4" cy="4.2" r="1.5" className={common} strokeWidth="1.7" /><path d="M2.2 9c.4-1.5 1.2-2.2 2.2-2.2S6.2 7.5 6.6 9M7.2 4.1c.9.1 1.5.7 1.5 1.5" className={common} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></>,
+    teams: <><circle cx="4" cy="4.4" r="1.3" className={common} strokeWidth="1.7" /><circle cx="8" cy="4.4" r="1.3" className={common} strokeWidth="1.7" /><path d="M2.2 9c.4-1.3 1-2 1.8-2s1.4.7 1.8 2M6.2 9C6.6 7.7 7.2 7 8 7s1.4.7 1.8 2" className={common} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></>,
+    'work-orchestration': <><rect x="2.5" y="2.5" width="7" height="7" rx="1.2" className={common} strokeWidth="1.7" /><path d="M4 5h4M4 7h2.8" className={common} strokeWidth="1.7" strokeLinecap="round" /></>,
+    activity: <path d="M2.5 6h2l1-2.5 1.4 5 1-2.5h1.6" className={common} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />,
+    'work-health': <path d="M6 9.5S2.8 7.6 2.8 4.8A1.9 1.9 0 0 1 6 3.4a1.9 1.9 0 0 1 3.2 1.4C9.2 7.6 6 9.5 6 9.5Z" className={common} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />,
+    bottleneck: <path d="M3 2.5h6L6.8 5.4v3.1L5.2 9.5V5.4L3 2.5Z" className={common} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />,
+    intervention: <><path d="M6 2.5v3M6 9.5v-3M2.5 6h3M9.5 6h-3" className={common} strokeWidth="1.7" strokeLinecap="round" /><circle cx="6" cy="6" r="1" className={common} strokeWidth="1.7" /></>,
+    audit: <><path d="M3.5 2.5h4L9 4v5.5H3V2.5h.5Z" className={common} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /><path d="M4.5 6h3M4.5 8h2" className={common} strokeWidth="1.7" strokeLinecap="round" /></>,
+  };
+
+  return <svg className="h-3.5 w-3.5 shrink-0" viewBox="0 0 12 12" aria-hidden="true">{icons[id]}</svg>;
+}
+
 function TeamSidebar({ active, setActive }: { active: SectionId; setActive: (id: SectionId) => void }) {
   const [collapsed, setCollapsed] = useState(false);
   const [open, setOpen] = useState<Record<GroupId, boolean>>({ Core: true, Operations: true, Intelligence: true });
@@ -68,11 +94,13 @@ function TeamSidebar({ active, setActive }: { active: SectionId; setActive: (id:
   return (
     <aside className={`shrink-0 border-r-2 border-black bg-[#F6F1E8] ${collapsed ? 'w-10' : 'w-44'}`}>
       <div className="flex items-center justify-between border-b border-black/20 p-1.5">
-        {!collapsed ? <p className="text-[8px] font-black uppercase tracking-[0.12em] text-neutral-600">Team Ops</p> : null}
-        <button className="grid h-5 w-5 place-items-center rounded border border-black bg-[#FFFDF8] text-[8px] font-black" onClick={() => setCollapsed((v) => !v)}>{collapsed ? '›' : '‹'}</button>
+        {!collapsed ? <p className="text-[9px] font-black uppercase tracking-[0.12em] text-neutral-600">Team Ops</p> : null}
+        <button className="grid h-5 w-5 place-items-center rounded border border-black bg-[#FFFDF8] text-[#111216]" onClick={() => setCollapsed((v) => !v)} aria-label={collapsed ? 'Expand team operations sidebar' : 'Collapse team operations sidebar'}>
+          <CollapseIcon collapsed={collapsed} />
+        </button>
       </div>
       <div className="space-y-1 p-1.5">
-        {menuGroups.map((group) => <div key={group.id}>{!collapsed ? <button className="mb-0.5 flex w-full items-center justify-between rounded px-1 py-0.5 text-[8px] font-black uppercase text-neutral-500" onClick={() => setOpen((current) => ({ ...current, [group.id]: !current[group.id] }))}>{group.id}<span>{open[group.id] ? '−' : '+'}</span></button> : null}{(collapsed || open[group.id]) ? group.items.map((item) => <button key={item.id} className={`mb-0.5 flex h-6 w-full items-center justify-between rounded-md px-1.5 text-left text-[8px] font-medium ${active === item.id ? 'bg-[#111216] text-white' : 'text-neutral-600 hover:bg-black/5'}`} onClick={() => setActive(item.id)} title={item.label}><span className="truncate">{collapsed ? item.label.slice(0, 1) : item.label}</span>{!collapsed && item.badge ? <span className="rounded bg-[#FFE600] px-1 text-[7px] font-black text-black">{item.badge}</span> : null}</button>) : null}</div>)}
+        {menuGroups.map((group) => <div key={group.id}>{!collapsed ? <button className="mb-0.5 flex w-full items-center justify-between rounded px-1 py-0.5 text-[9px] font-black uppercase text-neutral-500" onClick={() => setOpen((current) => ({ ...current, [group.id]: !current[group.id] }))}>{group.id}<span className="grid h-3.5 w-3.5 place-items-center text-[9px]">{open[group.id] ? '-' : '+'}</span></button> : null}{(collapsed || open[group.id]) ? group.items.map((item) => <button key={item.id} className={`mb-0.5 flex h-6 w-full items-center gap-1.5 rounded-md px-1.5 text-left text-[9px] font-medium ${active === item.id ? 'bg-[#111216] text-white' : 'text-neutral-600 hover:bg-black/5'}`} onClick={() => setActive(item.id)} title={item.label}><TeamMenuIcon id={item.id} /><span className="min-w-0 flex-1 truncate">{collapsed ? item.label.slice(0, 1) : item.label}</span>{!collapsed && item.badge ? <span className="rounded bg-[#FFE600] px-1 text-[7px] font-black text-black">{item.badge}</span> : null}</button>) : null}</div>)}
       </div>
     </aside>
   );
