@@ -30,7 +30,7 @@ export function ConsoleShell({
 }: ConsoleShellProps) {
   const shellTheme = isDarkMode ? 'bg-[#080A0F] text-[#F7F2E8]' : 'bg-[#F6F1E8] text-[#111216]';
   const contentTheme = isDarkMode ? 'border-black bg-[#141720] shadow-[3px_3px_0px_#000]' : 'border-black bg-[#FFFDF8] shadow-[3px_3px_0px_#000]';
-  const contentPadding = activeSection === 'Package Studio' ? 'p-0' : 'p-2.5';
+  const contentPadding = activeSection === 'Package Studio' || activeSection === 'Team Operations' ? 'p-0' : 'p-2.5';
 
   return (
     <main className={`h-screen overflow-hidden ${shellTheme}`}>
