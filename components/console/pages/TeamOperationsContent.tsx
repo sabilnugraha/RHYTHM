@@ -10,6 +10,10 @@ type SectionId = 'overview' | 'my-dashboard' | 'people' | 'teams' | 'work-orches
 type GroupId = 'Core' | 'Operations' | 'Intelligence';
 type Member = {
   name: string;
+  email: string;
+  phone: string;
+  photo: string;
+  birthDate: string;
   role: string;
   team: string;
   availability: string;
@@ -28,10 +32,10 @@ const menuGroups: { id: GroupId; items: { id: SectionId; label: string; badge?: 
 ];
 
 const initialMembers: Member[] = [
-  { name: 'Adit', role: 'Backend Dev', team: 'Engineering', availability: 'Full-time', workload: '145%', active: 12, blocked: 3, overdue: 4, health: 'At Risk', risk: 'High' },
-  { name: 'Joko', role: 'Business Analyst', team: 'Implementation', availability: 'Full-time', workload: '88%', active: 7, blocked: 1, overdue: 1, health: 'Stable', risk: 'Low' },
-  { name: 'Bella', role: 'UI/UX', team: 'Product', availability: 'Full-time', workload: '73%', active: 5, blocked: 0, overdue: 0, health: 'Healthy', risk: 'Low' },
-  { name: 'Nina', role: 'Support', team: 'Customer Success', availability: 'On-call', workload: '112%', active: 9, blocked: 2, overdue: 2, health: 'Watch', risk: 'Medium' },
+  { name: 'Adit', email: 'adit@rhythm.local', phone: '+62 812 0000 1001', photo: '', birthDate: '1995-03-12', role: 'Backend Dev', team: 'Engineering', availability: 'Full-time', workload: '145%', active: 12, blocked: 3, overdue: 4, health: 'At Risk', risk: 'High' },
+  { name: 'Joko', email: 'joko@rhythm.local', phone: '+62 812 0000 1002', photo: '', birthDate: '1992-08-24', role: 'Business Analyst', team: 'Implementation', availability: 'Full-time', workload: '88%', active: 7, blocked: 1, overdue: 1, health: 'Stable', risk: 'Low' },
+  { name: 'Bella', email: 'bella@rhythm.local', phone: '+62 812 0000 1003', photo: '', birthDate: '1997-01-18', role: 'UI/UX', team: 'Product', availability: 'Full-time', workload: '73%', active: 5, blocked: 0, overdue: 0, health: 'Healthy', risk: 'Low' },
+  { name: 'Nina', email: 'nina@rhythm.local', phone: '+62 812 0000 1004', photo: '', birthDate: '1994-11-06', role: 'Support', team: 'Customer Success', availability: 'On-call', workload: '112%', active: 9, blocked: 2, overdue: 2, health: 'Watch', risk: 'Medium' },
 ];
 
 const tasks = [
@@ -178,8 +182,12 @@ function PeoplePanel({ members, onAddMember }: { members: Member[]; onAddMember:
   const [isOpen, setIsOpen] = useState(false);
   const [draft, setDraft] = useState<Member>({
     name: '',
-    role: '',
-    team: '',
+    email: '',
+    phone: '',
+    photo: '',
+    birthDate: '',
+    role: 'Unassigned',
+    team: 'Unassigned',
     availability: 'Full-time',
     workload: '0%',
     active: 0,
@@ -198,9 +206,9 @@ function PeoplePanel({ members, onAddMember }: { members: Member[]; onAddMember:
 
   function submitMember(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!draft.name.trim() || !draft.role.trim() || !draft.team.trim()) return;
-    onAddMember({ ...draft, name: draft.name.trim(), role: draft.role.trim(), team: draft.team.trim() });
-    setDraft({ name: '', role: '', team: '', availability: 'Full-time', workload: '0%', active: 0, blocked: 0, overdue: 0, health: 'Healthy', risk: 'Low' });
+    if (!draft.name.trim() || !draft.email.trim() || !draft.phone.trim() || !draft.birthDate.trim()) return;
+    onAddMember({ ...draft, name: draft.name.trim(), email: draft.email.trim(), phone: draft.phone.trim(), photo: draft.photo.trim(), birthDate: draft.birthDate.trim() });
+    setDraft({ name: '', email: '', phone: '', photo: '', birthDate: '', role: 'Unassigned', team: 'Unassigned', availability: 'Full-time', workload: '0%', active: 0, blocked: 0, overdue: 0, health: 'Healthy', risk: 'Low' });
     setIsOpen(false);
   }
 
@@ -221,16 +229,11 @@ function PeoplePanel({ members, onAddMember }: { members: Member[]; onAddMember:
               <button type="button" onClick={() => setIsOpen(false)} className="grid h-6 w-6 place-items-center rounded-md border border-black bg-[#111216] text-[10px] font-black text-white">x</button>
             </div>
             <div className="grid gap-1.5 md:grid-cols-2">
-              <FormField label="Name" value={draft.name} onChange={(value) => updateDraft('name', value)} required />
-              <FormField label="Role" value={draft.role} onChange={(value) => updateDraft('role', value)} required />
-              <FormField label="Team" value={draft.team} onChange={(value) => updateDraft('team', value)} required />
-              <FormField label="Availability" value={draft.availability} onChange={(value) => updateDraft('availability', value)} />
-              <FormField label="Workload" value={draft.workload} onChange={(value) => updateDraft('workload', value)} />
-              <FormField label="Active Tasks" type="number" value={String(draft.active)} onChange={(value) => updateDraft('active', value)} />
-              <FormField label="Blocked" type="number" value={String(draft.blocked)} onChange={(value) => updateDraft('blocked', value)} />
-              <FormField label="Overdue" type="number" value={String(draft.overdue)} onChange={(value) => updateDraft('overdue', value)} />
-              <FormField label="Health" value={draft.health} onChange={(value) => updateDraft('health', value)} />
-              <FormField label="Risk" value={draft.risk} onChange={(value) => updateDraft('risk', value)} />
+              <FormField label="Full Name" value={draft.name} onChange={(value) => updateDraft('name', value)} required />
+              <FormField label="Email" type="email" value={draft.email} onChange={(value) => updateDraft('email', value)} required />
+              <FormField label="Phone Number" type="tel" value={draft.phone} onChange={(value) => updateDraft('phone', value)} required />
+              <FormField label="Birth Date" type="date" value={draft.birthDate} onChange={(value) => updateDraft('birthDate', value)} required />
+              <FormField label="Profile Photo" type="file" value={draft.photo} onChange={(value) => updateDraft('photo', value)} className="md:col-span-2" accept="image/*" />
             </div>
             <div className="mt-2 flex justify-end gap-1">
               <button type="button" onClick={() => setIsOpen(false)} className="h-6 rounded-md border border-black bg-[#FFFDF8] px-2 text-[8px] font-black">Cancel</button>
@@ -243,11 +246,19 @@ function PeoplePanel({ members, onAddMember }: { members: Member[]; onAddMember:
   );
 }
 
-function FormField({ label, value, onChange, type = 'text', required }: { label: string; value: string; onChange: (value: string) => void; type?: string; required?: boolean }) {
+function FormField({ label, value, onChange, type = 'text', required, className = '', accept }: { label: string; value: string; onChange: (value: string) => void; type?: string; required?: boolean; className?: string; accept?: string }) {
   return (
-    <label className="block">
+    <label className={`block ${className}`}>
       <span className="mb-0.5 block text-[8px] font-black uppercase text-neutral-600">{label}</span>
-      <input type={type} required={required} value={value} onChange={(event) => onChange(event.target.value)} className="h-7 w-full rounded-md border border-black bg-[#FFFDF8] px-1.5 text-[9px] font-medium outline-none" />
+      <input
+        type={type}
+        required={required}
+        value={type === 'file' ? undefined : value}
+        accept={accept}
+        onChange={(event) => onChange(type === 'file' ? event.target.files?.[0]?.name ?? '' : event.target.value)}
+        className="h-7 w-full rounded-md border border-black bg-[#FFFDF8] px-1.5 text-[9px] font-medium outline-none file:mr-2 file:h-5 file:rounded file:border-0 file:bg-[#FFE600] file:px-2 file:text-[8px] file:font-black"
+      />
+      {type === 'file' && value ? <span className="mt-0.5 block truncate text-[8px] font-medium text-neutral-600">{value}</span> : null}
     </label>
   );
 }
