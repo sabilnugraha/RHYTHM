@@ -9,11 +9,14 @@ type SectionId = 'overview' | 'my-dashboard' | 'people' | 'teams' | 'work-orches
 
 type GroupId = 'Core' | 'Operations' | 'Intelligence';
 type Member = {
+  userId: string;
   name: string;
   email: string;
   phone: string;
   photo: string;
   birthDate: string;
+  status: string;
+  directApproval: string;
   role: string;
   team: string;
   availability: string;
@@ -32,10 +35,10 @@ const menuGroups: { id: GroupId; items: { id: SectionId; label: string; badge?: 
 ];
 
 const initialMembers: Member[] = [
-  { name: 'Adit', email: 'adit@rhythm.local', phone: '+62 812 0000 1001', photo: '', birthDate: '1995-03-12', role: 'Backend Dev', team: 'Engineering', availability: 'Full-time', workload: '145%', active: 12, blocked: 3, overdue: 4, health: 'At Risk', risk: 'High' },
-  { name: 'Joko', email: 'joko@rhythm.local', phone: '+62 812 0000 1002', photo: '', birthDate: '1992-08-24', role: 'Business Analyst', team: 'Implementation', availability: 'Full-time', workload: '88%', active: 7, blocked: 1, overdue: 1, health: 'Stable', risk: 'Low' },
-  { name: 'Bella', email: 'bella@rhythm.local', phone: '+62 812 0000 1003', photo: '', birthDate: '1997-01-18', role: 'UI/UX', team: 'Product', availability: 'Full-time', workload: '73%', active: 5, blocked: 0, overdue: 0, health: 'Healthy', risk: 'Low' },
-  { name: 'Nina', email: 'nina@rhythm.local', phone: '+62 812 0000 1004', photo: '', birthDate: '1994-11-06', role: 'Support', team: 'Customer Success', availability: 'On-call', workload: '112%', active: 9, blocked: 2, overdue: 2, health: 'Watch', risk: 'Medium' },
+  { userId: 'USR-001', name: 'Adit', email: 'adit@rhythm.local', phone: '+62 812 0000 1001', photo: '', birthDate: '1995-03-12', status: 'Active', directApproval: 'Raka', role: 'Backend Dev', team: 'Engineering', availability: 'Full-time', workload: '145%', active: 12, blocked: 3, overdue: 4, health: 'At Risk', risk: 'High' },
+  { userId: 'USR-002', name: 'Joko', email: 'joko@rhythm.local', phone: '+62 812 0000 1002', photo: '', birthDate: '1992-08-24', status: 'Active', directApproval: 'Sabil', role: 'Business Analyst', team: 'Implementation', availability: 'Full-time', workload: '88%', active: 7, blocked: 1, overdue: 1, health: 'Stable', risk: 'Low' },
+  { userId: 'USR-003', name: 'Bella', email: 'bella@rhythm.local', phone: '+62 812 0000 1003', photo: '', birthDate: '1997-01-18', status: 'Active', directApproval: 'Sabil', role: 'UI/UX', team: 'Product', availability: 'Full-time', workload: '73%', active: 5, blocked: 0, overdue: 0, health: 'Healthy', risk: 'Low' },
+  { userId: 'USR-004', name: 'Nina', email: 'nina@rhythm.local', phone: '+62 812 0000 1004', photo: '', birthDate: '1994-11-06', status: 'No Active', directApproval: 'Raka', role: 'Support', team: 'Customer Success', availability: 'On-call', workload: '112%', active: 9, blocked: 2, overdue: 2, health: 'Watch', risk: 'Medium' },
 ];
 
 const tasks = [
@@ -147,36 +150,32 @@ function Stats() {
 
 function MemberTable({ members, compact = false }: { members: Member[]; compact?: boolean }) {
   const columns = compact
-    ? 'md:grid-cols-[90px_110px_85px_70px_60px_50px_50px_50px_64px_54px]'
-    : 'md:grid-cols-[110px_130px_110px_84px_70px_64px_56px_56px_70px_60px]';
+    ? 'md:grid-cols-[74px_100px_140px_96px_72px_72px_78px_90px]'
+    : 'md:grid-cols-[74px_120px_170px_110px_78px_82px_90px_110px]';
 
   return (
     <div className="overflow-x-auto">
-      <div className="min-w-[860px] space-y-1">
+      <div className="min-w-[870px] space-y-1">
         <div className={`grid gap-1 rounded-md border border-black bg-[#111216] p-1.5 text-[8px] font-black uppercase text-white ${columns}`}>
+          <span>User ID</span>
           <span>Name</span>
-          <span>Role</span>
-          <span>Team</span>
-          <span>Availability</span>
-          <span>Workload</span>
-          <span>Active</span>
-          <span>Blocked</span>
-          <span>Overdue</span>
-          <span>Health</span>
-          <span>Risk</span>
+          <span>Email</span>
+          <span>Phone</span>
+          <span>Birth Date</span>
+          <span>Status</span>
+          <span>Photo</span>
+          <span>Direct Approval</span>
         </div>
         {members.map((m) => (
-          <div key={`${m.name}-${m.role}`} className={`grid gap-1 rounded-md border border-black bg-[#FFFDF8] p-1.5 text-[8px] font-medium ${columns} md:items-center`}>
+          <div key={m.userId} className={`grid gap-1 rounded-md border border-black bg-[#FFFDF8] p-1.5 text-[8px] font-medium ${columns} md:items-center`}>
+            <b className="text-[8px]">{m.userId}</b>
             <b className="text-[9px]">{m.name}</b>
-            <span>{m.role}</span>
-            <span>{m.team}</span>
-            <span>{m.availability}</span>
-            <span>{m.workload}</span>
-            <span>{m.active} act</span>
-            <span>{m.blocked} blk</span>
-            <span>{m.overdue} due</span>
-            <span className={`rounded border border-black px-1 text-center font-black ${chipColor(m.health)}`}>{m.health}</span>
-            <span className={`rounded border border-black px-1 text-center font-black ${chipColor(m.risk)}`}>{m.risk}</span>
+            <span className="truncate">{m.email}</span>
+            <span>{m.phone}</span>
+            <span>{m.birthDate}</span>
+            <span className={`rounded border border-black px-1 text-center font-black ${m.status === 'Active' ? 'bg-[#9BFF00] text-black' : 'bg-[#FF4E1F] text-white'}`}>{m.status}</span>
+            <span className="truncate">{m.photo || '-'}</span>
+            <span>{m.directApproval}</span>
           </div>
         ))}
       </div>
@@ -187,11 +186,14 @@ function MemberTable({ members, compact = false }: { members: Member[]; compact?
 function PeoplePanel({ members, onAddMember }: { members: Member[]; onAddMember: (member: Member) => void }) {
   const [isOpen, setIsOpen] = useState(false);
   const [draft, setDraft] = useState<Member>({
+    userId: '',
     name: '',
     email: '',
     phone: '',
     photo: '',
     birthDate: '',
+    status: 'Active',
+    directApproval: '',
     role: 'Unassigned',
     team: 'Unassigned',
     availability: 'Full-time',
@@ -212,9 +214,9 @@ function PeoplePanel({ members, onAddMember }: { members: Member[]; onAddMember:
 
   function submitMember(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!draft.name.trim() || !draft.email.trim() || !draft.phone.trim() || !draft.birthDate.trim()) return;
-    onAddMember({ ...draft, name: draft.name.trim(), email: draft.email.trim(), phone: draft.phone.trim(), photo: draft.photo.trim(), birthDate: draft.birthDate.trim() });
-    setDraft({ name: '', email: '', phone: '', photo: '', birthDate: '', role: 'Unassigned', team: 'Unassigned', availability: 'Full-time', workload: '0%', active: 0, blocked: 0, overdue: 0, health: 'Healthy', risk: 'Low' });
+    if (!draft.name.trim() || !draft.email.trim() || !draft.phone.trim() || !draft.birthDate.trim() || !draft.userId.trim() || !draft.directApproval.trim()) return;
+    onAddMember({ ...draft, userId: draft.userId.trim(), name: draft.name.trim(), email: draft.email.trim(), phone: draft.phone.trim(), photo: draft.photo.trim(), birthDate: draft.birthDate.trim(), directApproval: draft.directApproval.trim() });
+    setDraft({ userId: '', name: '', email: '', phone: '', photo: '', birthDate: '', status: 'Active', directApproval: '', role: 'Unassigned', team: 'Unassigned', availability: 'Full-time', workload: '0%', active: 0, blocked: 0, overdue: 0, health: 'Healthy', risk: 'Low' });
     setIsOpen(false);
   }
 
@@ -226,7 +228,7 @@ function PeoplePanel({ members, onAddMember }: { members: Member[]; onAddMember:
 
       {isOpen ? (
         <div className="fixed inset-0 z-50 grid place-items-center bg-black/35 p-3 backdrop-blur-[1px]">
-          <form onSubmit={submitMember} className="w-full max-w-xl overflow-hidden rounded-xl border-2 border-black bg-[#F6F1E8] shadow-[8px_8px_0px_#000]">
+          <form onSubmit={submitMember} className="relative w-full max-w-xl overflow-visible rounded-xl border-2 border-black bg-[#F6F1E8] before:absolute before:left-2 before:top-2 before:-z-10 before:h-full before:w-full before:rounded-xl before:border-2 before:border-black before:bg-black/10">
             <div className="flex items-center justify-between gap-2 border-b-2 border-black bg-[#FFFDF8] px-3 py-2">
               <div>
                 <p className="text-[8px] font-black uppercase tracking-[0.12em] text-neutral-500">Team Operations</p>
@@ -239,6 +241,9 @@ function PeoplePanel({ members, onAddMember }: { members: Member[]; onAddMember:
               <FormField label="Email" type="email" value={draft.email} onChange={(value) => updateDraft('email', value)} required />
               <FormField label="Phone Number" type="tel" value={draft.phone} onChange={(value) => updateDraft('phone', value)} required />
               <FormField label="Birth Date" type="date" value={draft.birthDate} onChange={(value) => updateDraft('birthDate', value)} required />
+              <FormField label="User ID" value={draft.userId} onChange={(value) => updateDraft('userId', value)} required />
+              <FormField label="Direct Approval" value={draft.directApproval} onChange={(value) => updateDraft('directApproval', value)} required />
+              <FormSelect label="Status" value={draft.status} onChange={(value) => updateDraft('status', value)} options={['Active', 'No Active']} />
               <FormField label="Profile Photo" type="file" value={draft.photo} onChange={(value) => updateDraft('photo', value)} className="md:col-span-2" accept="image/*" />
             </div>
             <div className="flex justify-end gap-2 bg-[#FFFDF8] px-3 py-2">
@@ -265,6 +270,17 @@ function FormField({ label, value, onChange, type = 'text', required, className 
         className="h-8 w-full rounded-md border-2 border-black bg-[#FFFDF8] px-2 text-[9px] font-medium shadow-[2px_2px_0px_#000] outline-none file:mr-2 file:h-6 file:rounded-md file:border-2 file:border-black file:bg-[#FFE600] file:px-2 file:text-[8px] file:font-black file:shadow-[1px_1px_0px_#000]"
       />
       {type === 'file' && value ? <span className="mt-0.5 block truncate text-[8px] font-medium text-neutral-600">{value}</span> : null}
+    </label>
+  );
+}
+
+function FormSelect({ label, value, onChange, options }: { label: string; value: string; onChange: (value: string) => void; options: string[] }) {
+  return (
+    <label className="block">
+      <span className="mb-0.5 block text-[8px] font-black uppercase text-neutral-600">{label}</span>
+      <select value={value} onChange={(event) => onChange(event.target.value)} className="h-8 w-full rounded-md border-2 border-black bg-[#FFFDF8] px-2 text-[9px] font-medium shadow-[2px_2px_0px_#000] outline-none">
+        {options.map((option) => <option key={option} value={option}>{option}</option>)}
+      </select>
     </label>
   );
 }
