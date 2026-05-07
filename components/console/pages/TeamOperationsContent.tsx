@@ -228,7 +228,7 @@ function PeoplePanel({ members, onAddMember }: { members: Member[]; onAddMember:
 
       {isOpen ? (
         <div className="fixed inset-0 z-50 grid place-items-center bg-black/35 p-3 backdrop-blur-[1px]">
-          <form onSubmit={submitMember} className="relative w-full max-w-xl overflow-visible rounded-xl border-2 border-black bg-[#F6F1E8] before:absolute before:left-2 before:top-2 before:-z-10 before:h-full before:w-full before:rounded-xl before:border-2 before:border-black before:bg-black/10">
+          <form onSubmit={submitMember} className="relative w-full max-w-xl overflow-visible rounded-[10px] border-2 border-black bg-[#F6F1E8] before:absolute before:left-2 before:top-2 before:-z-10 before:h-full before:w-full before:rounded-[10px] before:border-2 before:border-black before:bg-black/10">
             <div className="flex items-center justify-between gap-2 border-b-2 border-black bg-[#FFFDF8] px-3 py-2">
               <div>
                 <p className="text-[8px] font-black uppercase tracking-[0.12em] text-neutral-500">Team Operations</p>
