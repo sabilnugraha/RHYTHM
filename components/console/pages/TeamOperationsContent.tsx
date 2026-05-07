@@ -87,10 +87,10 @@ function Panel({ title, children, badge, action }: { title: string; children: Re
 
 function SmallButton({ children, dark, onClick, type = 'button', variant = 'default', className = '' }: { children: React.ReactNode; dark?: boolean; onClick?: () => void; type?: 'button' | 'submit'; variant?: 'default' | 'soft' | 'ghost'; className?: string }) {
   const tone = variant === 'ghost'
-    ? 'bg-[#FFFDF8] text-[#111216] shadow-[2px_2px_0px_#fff]'
+    ? 'bg-[#FFFDF8] text-[#111216] shadow-[2px_2px_0px_#000]'
     : dark
-      ? 'bg-[#111216] text-white shadow-[2px_2px_0px_#fff]'
-      : 'bg-[#FFE600] text-black shadow-[2px_2px_0px_#fff]';
+      ? 'bg-[#111216] text-white shadow-[2px_2px_0px_#000]'
+      : 'bg-[#FFE600] text-black shadow-[2px_2px_0px_#000]';
 
   return <button type={type} onClick={onClick} className={`h-6 rounded-md border-2 border-black px-2 text-[8px] font-black transition-transform hover:-translate-y-0.5 active:translate-y-0 ${tone} ${className}`}>{children}</button>;
 }
@@ -226,13 +226,13 @@ function PeoplePanel({ members, onAddMember }: { members: Member[]; onAddMember:
 
       {isOpen ? (
         <div className="fixed inset-0 z-50 grid place-items-center bg-black/35 p-3 backdrop-blur-[1px]">
-          <form onSubmit={submitMember} className="w-full max-w-xl overflow-hidden rounded-xl border-2 border-black bg-[#F6F1E8] shadow-[8px_8px_0px_#fff,-1px_-1px_0px_#000]">
+          <form onSubmit={submitMember} className="w-full max-w-xl overflow-hidden rounded-xl border-2 border-black bg-[#F6F1E8] shadow-[8px_8px_0px_#000]">
             <div className="flex items-center justify-between gap-2 border-b-2 border-black bg-[#FFFDF8] px-3 py-2">
               <div>
                 <p className="text-[8px] font-black uppercase tracking-[0.12em] text-neutral-500">Team Operations</p>
                 <h2 className="text-[13px] font-black leading-4">Add People</h2>
               </div>
-              <button type="button" onClick={() => setIsOpen(false)} className="grid h-8 w-8 place-items-center rounded-lg border-2 border-black bg-[#111216] text-[12px] font-black leading-none text-white shadow-[2px_2px_0px_#fff] transition-transform hover:-translate-y-0.5">x</button>
+              <button type="button" onClick={() => setIsOpen(false)} className="grid h-8 w-8 place-items-center rounded-lg border-2 border-black bg-[#111216] text-[12px] font-black leading-none text-white shadow-[2px_2px_0px_#000] transition-transform hover:-translate-y-0.5">x</button>
             </div>
             <div className="grid gap-2 border-b border-black/20 bg-[#F6F1E8] px-3 py-3 md:grid-cols-2">
               <FormField label="Full Name" value={draft.name} onChange={(value) => updateDraft('name', value)} required />
@@ -262,7 +262,7 @@ function FormField({ label, value, onChange, type = 'text', required, className 
         value={type === 'file' ? undefined : value}
         accept={accept}
         onChange={(event) => onChange(type === 'file' ? event.target.files?.[0]?.name ?? '' : event.target.value)}
-        className="h-8 w-full rounded-md border-2 border-black bg-[#FFFDF8] px-2 text-[9px] font-medium shadow-[2px_2px_0px_#fff] outline-none file:mr-2 file:h-6 file:rounded-md file:border-2 file:border-black file:bg-[#FFE600] file:px-2 file:text-[8px] file:font-black"
+        className="h-8 w-full rounded-md border-2 border-black bg-[#FFFDF8] px-2 text-[9px] font-medium shadow-[2px_2px_0px_#000] outline-none file:mr-2 file:h-6 file:rounded-md file:border-2 file:border-black file:bg-[#FFE600] file:px-2 file:text-[8px] file:font-black file:shadow-[1px_1px_0px_#000]"
       />
       {type === 'file' && value ? <span className="mt-0.5 block truncate text-[8px] font-medium text-neutral-600">{value}</span> : null}
     </label>
